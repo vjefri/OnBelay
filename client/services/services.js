@@ -177,8 +177,10 @@ angular.module('nova.services', [])
     });
 
   };
+  
   updateNotfications();
   $interval(updateNotfications, 5000);
+  
   return {
     sendNotification: sendNotification,
     checkNotifications: checkNotifications,

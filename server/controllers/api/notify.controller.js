@@ -43,20 +43,25 @@ function sendNotification (req, res) {
 }
 
 function getNotifications(req, res) {
+  //get username
   var authUser = req.decoded.user;
-
+  
+  //find that username in the database
   User.findOne({ username: authUser }, function(err, user) {
 
     if (err) console.error(err);
-
+    
+    //if the user isn't found, send back a JSON containing falsey info
     if (!user) {
       res.json({ success: false, reason: 'User does not exist' });
+    //if the user is found
     } else {
-
+      //get all the notifications of that user
       Notification.find({ _id: { $in: user.notifications.incoming }}, function(err, notifications) {
 
         if (err) console.error(err);
-
+        
+        //save notifications in an array
         var respNotifications = notifications.map(function(notification) {
           
           //checks to see if the notification is resolved
