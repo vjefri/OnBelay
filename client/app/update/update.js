@@ -1,12 +1,16 @@
 angular.module('nova.update', [])
 
-.controller('UpdateController', function($scope, $state, Update, AppInfo){
+.controller('UpdateController', function($scope, $state, Update, Climbers, AppInfo){
   $scope.user = {};
 
-  Climbers.getClimberById(data.id).then(function(userRes){
-    angular.extend(AppInfo.user, userRes);
-    angular.extend($scope.user, AppInfo.user);
-  });
+  if(AppInfo.user.id !== undefined){
+    Climbers.getClimberById(AppInfo.user.id).then(function(userRes){
+      angular.extend(AppInfo.user, userRes);
+      angular.extend($scope.user, AppInfo.user);
+    });
+  } else {
+    $scope.user.name = {};
+  }
 
 
 

@@ -56,14 +56,13 @@ module.exports = {
           username: req.body.username,
           password: null
         });
-
         newUser.hashPassword(req.body.password, function(hash) {
           newUser.password = hash;
           newUser.save(function(err, user) {
             if (err) console.error(err);
-
+            
             var token = createToken(user);
-            res.json({success: true, token: token});
+            res.json({success: true, token: token, status: newUser.climb, id: newUser.id});
           });
         });
       }
