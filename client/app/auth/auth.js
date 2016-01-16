@@ -1,6 +1,7 @@
 angular.module('nova.auth', [])
 
 .controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify, $interval) {
+
   $scope.user = {};
   $rootScope.unread = $rootScope.unread || 0;
 
@@ -8,28 +9,30 @@ angular.module('nova.auth', [])
     $rootScope.hasAuth = true;
   }
 
-  $scope.signin = function () {
+  $scope.signin = function() {
     Auth.signin($scope.user)
-      .then(function (token) {
+      .then(function(token) {
         $window.localStorage.setItem('com.nova', token);
+        $window.localStorage.setItem('username', $scope.user.username);
         $rootScope.hasAuth = true;
         $state.go('main');
         //get notifications that are unread
         $scope.checkNotifications();
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
       });
   };
 
-  $scope.signup = function () {
+  $scope.signup = function() {
     Auth.signup($scope.user)
-      .then(function (token) {
+      .then(function(token) {
         $window.localStorage.setItem('com.nova', token);
+        $window.localStorage.setItem('username', $scope.user.username);
         $rootScope.hasAuth = true;
         $state.go('update');
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
       });
   };

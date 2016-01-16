@@ -15,6 +15,7 @@ module.exports = {
           username: climber.username,
           first: climber.name.first,
           last: climber.name.last,
+          pendingReq: climber.pendingReq,
           zipCode: climber.zipCode,
           gender: climber.gender,
           skillLevel: climber.skillLevel

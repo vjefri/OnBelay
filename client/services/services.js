@@ -1,33 +1,34 @@
 angular.module('nova.services', [])
 
-.factory('Auth', function($http, $rootScope, $state, $window){
+.factory('Auth', function($http, $rootScope, $state, $window) {
+  var authUsername = $window.localStorage.username;
 
-  var signin = function(user){
+  var signin = function(user) {
     return $http({
-      method: 'POST',
-      url: '/api/signin',
-      data: user
-    })
-    .then(function(resp){
-      return resp.data.token;
-    });
+        method: 'POST',
+        url: '/api/signin',
+        data: user
+      })
+      .then(function(resp) {
+        return resp.data.token;
+      });
   };
 
-  var signup = function(user){
+  var signup = function(user) {
     return $http({
-      method: 'POST',
-      url: '/api/signup',
-      data: user
-    })
-    .then(function(resp){
-      return resp.data.token;
-    })
-    .catch(function(err) {
-      $state.go('signup');
-    });
+        method: 'POST',
+        url: '/api/signup',
+        data: user
+      })
+      .then(function(resp) {
+        return resp.data.token;
+      })
+      .catch(function(err) {
+        $state.go('signup');
+      });
   };
 
-  var signout = function(){
+  var signout = function() {
     $rootScope.hasAuth = false;
     $window.localStorage.removeItem('com.nova');
     $state.go('signin');
@@ -39,6 +40,7 @@ angular.module('nova.services', [])
   };
 
   return {
+    authUsername: authUsername,
     signin: signin,
     signup: signup,
     signout: signout,
@@ -46,13 +48,13 @@ angular.module('nova.services', [])
   };
 })
 
-.factory('Climbers', function($http){
+.factory('Climbers', function($http) {
 
-  var getClimbers = function(){
+  var getClimbers = function() {
     return $http({
       method: 'GET',
       url: "/api/auth/user/climbers"
-    }).then(function(res){
+    }).then(function(res) {
       return res.data;
     });
   };
@@ -72,11 +74,12 @@ angular.module('nova.services', [])
     return $http({
       method: 'PUT',
       url: '/api/auth/user/flag',
-      data: {from: climber}
+      data: {
+        from: climber
+      }
     }).then(function(resp) {
       return resp.data;
     });
-
   };
 
   return {
@@ -87,21 +90,31 @@ angular.module('nova.services', [])
 
 })
 
-.factory('Update', function($http){
-  var update = function(user){
+.factory('Update', function($http) {
+  var update = function(user) {
     return $http.put('/api/auth/user/update', user)
-    .then(function(response){
-      return response.data;
-    })
-    .catch(function(err){
-      console.error(err);
-    });
+      .then(function(response) {
+        return response.data;
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+  };
+
+  var updatePendingClimbers = function(authUsername) {
+    return $http.put('/api/auth/user/update', authUsername)
+      .then(function(response) {
+        return response.data;
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
   };
 
   return {
-    update: update
+    update: update,
+    updatePendingClimbers: updatePendingClimbers
   };
-
 })
 
 .factory('Notify', function($http, $rootScope, $interval) {
@@ -110,7 +123,9 @@ angular.module('nova.services', [])
     return $http({
       method: 'POST',
       url: '/api/auth/user/notifications/create',
-      data: {targetUser: climber}
+      data: {
+        targetUser: climber
+      }
     }).then(function(res) {
       return res.data;
     });
