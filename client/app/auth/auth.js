@@ -1,6 +1,6 @@
 angular.module('nova.auth', [])
 
-.controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify) {
+.controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify, $interval) {
   $scope.user = {};
   $rootScope.unread = $rootScope.unread || 0;
 
@@ -43,4 +43,6 @@ angular.module('nova.auth', [])
   };
 
   $scope.checkNotifications();
+  //update red notification circle every 1 sec
+  $interval($scope.checkNotifications, 1000);
 });
