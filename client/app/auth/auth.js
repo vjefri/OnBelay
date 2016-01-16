@@ -1,6 +1,6 @@
 angular.module('nova.auth', [])
 
-.controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify, $interval) {
+.controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify, AppInfo, Climbers) {
   $scope.user = {};
   $rootScope.unread = $rootScope.unread || 0;
 
@@ -10,12 +10,15 @@ angular.module('nova.auth', [])
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.nova', token);
+      .then(function (data) {
+        $window.localStorage.setItem('com.nova', data.token);
         $rootScope.hasAuth = true;
-        $state.go('main');
-        //get notifications that are unread
-        $scope.checkNotifications();
+        console.log(data.id);
+        Climbers.getClimberById(data.id).then(function(userRes){
+          angular.extend(AppInfo.user, userRes);
+          $state.go('main');
+          $scope.checkNotifications();
+        });
       })
       .catch(function (error) {
         console.error(error);
@@ -24,10 +27,14 @@ angular.module('nova.auth', [])
 
   $scope.signup = function () {
     Auth.signup($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.nova', token);
+      .then(function (data) {
+        $window.localStorage.setItem('com.nova', data.token);
         $rootScope.hasAuth = true;
-        $state.go('update');
+        console.log(data.id);
+        Climbers.getClimberById(data.id).then(function(userRes){
+          angular.extend(AppInfo.user, userRes);
+          $state.go('update');
+        });
       })
       .catch(function (error) {
         console.error(error);

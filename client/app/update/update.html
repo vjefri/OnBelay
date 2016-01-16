@@ -1,10 +1,11 @@
 <div id='update'>
   <h1>update</h1>
-
   <form name="update-form" ng-submit='update()'>
    <div class="form-group">
      <!-- <label for="name">Firstname</label> -->
-     <input type='text' id="firstname" class="form-control" ng-model='user.name.first' placeholder="First name..."><br>
+     First Name:<br>
+     {{user}}
+     <input type='text' id="firstname" class="form-control" ng-model='user.name.first' placeholder="{{}}"><br>
      <!-- <label for="name">Lastname</label> -->
      <input type='text' id="lastname" class="form-control" ng-model='user.name.last' placeholder="Last name..."><br>
      <!-- <label for="zip-code">ZIP</label> -->

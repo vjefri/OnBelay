@@ -31,7 +31,7 @@ module.exports = {
         user.comparePassword(req.body.password, user.password, function(valid) {
           if (valid) {
             var userToken = createToken(user);
-            res.json({'success': true, 'token': userToken, 'status': user.climb});
+            res.json({success: true, token: userToken, status: user.climb, id:user.id});
           } else {
             res.sendStatus(401);
           }
@@ -63,7 +63,7 @@ module.exports = {
             if (err) console.error(err);
 
             var token = createToken(user);
-            res.json({ success: true, token: token });
+            res.json({success: true, token: userToken, status: user.climb, id:user.id});
           });
         });
       }

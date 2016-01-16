@@ -1,7 +1,8 @@
 angular.module('nova.update', [])
 
-.controller('UpdateController', function($scope, $state, Update){
-  $scope.user = { name: {first: '', last: ''} };
+.controller('UpdateController', function($scope, $state, Update, AppInfo){
+  $scope.user = {};
+  angular.extend($scope.user, AppInfo.user);
   $scope.update = function(){
     Update.update($scope.user)
     .then(function (res) {

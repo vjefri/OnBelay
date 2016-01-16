@@ -48,6 +48,11 @@ angular.module('nova', [
   $scope.hasAuth = $rootScope.hasAuth;
   $scope.unread = $rootScope.unread;
 })
+.factory('AppInfo',function(Climbers){
+  var info = {};
+  info.user = {};
+  return info;
+})
 .factory('AttachTokens', function($window){
   var attach = {
     request: function(object) {

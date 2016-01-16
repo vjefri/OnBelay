@@ -18,8 +18,7 @@ app.use(express.static(__dirname + '/../client'));
 
 //if it's not production
 if (process.env.NODE_ENV !== 'production') {
-  //morgan is a logger that logs that PUT, POST, GET request on the terminal when running Nodemon
-  app.use(require('morgan')('dev'));
+  //app.use(require('morgan')('dev'));
 }
 
 /* seeds the db with fake users for development */
