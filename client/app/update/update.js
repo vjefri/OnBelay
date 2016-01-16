@@ -12,8 +12,6 @@ angular.module('nova.update', [])
     $scope.user.name = {};
   }
 
-
-
   $scope.update = function(){
     Update.update($scope.user)
     .then(function (res) {
