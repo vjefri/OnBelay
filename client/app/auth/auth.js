@@ -1,6 +1,6 @@
 angular.module('nova.auth', [])
 
-.controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify, AppInfo, Climbers) {
+.controller('AuthController', function ($scope, $rootScope, $window, $state, $interval, Auth, Notify, AppInfo, Climbers) {
   $scope.user = {};
   $rootScope.unread = $rootScope.unread || 0;
 
