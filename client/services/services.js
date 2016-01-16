@@ -104,7 +104,7 @@ angular.module('nova.services', [])
 
 })
 
-.factory('Notify', function($http, $rootScope) {
+.factory('Notify', function($http, $rootScope, $interval) {
 
   var sendNotification = function(climber) {
     return $http({
@@ -117,12 +117,7 @@ angular.module('nova.services', [])
   };
 
   var checkNotifications = function() {
-    return $http({
-      method: 'GET',
-      url: '/api/auth/user/notifications/unread'
-    }).then(function(resp) {
-      return resp.data;
-    });
+    return currentNotifications.length;
   };
 
   var fetchAllNotifications = function() {
@@ -157,13 +152,27 @@ angular.module('nova.services', [])
       return res.data;
     });
   };
+  
+  var currentNotifications = [];
 
+  var updateNotfications = function(){ 
+    return $http({
+      method: 'GET',
+      url: '/api/auth/user/notifications/incoming'
+    }).then(function(res) {
+      currentNotifications = res.data;
+    });
+
+  };
+  updateNotfications();
+  $interval(updateNotfications, 5000);
   return {
     sendNotification: sendNotification,
     checkNotifications: checkNotifications,
     fetchAllNotifications: fetchAllNotifications,
     markAllNotificationsRead: markAllNotificationsRead,
-    replyToClimber: replyToClimber
+    replyToClimber: replyToClimber,
+    currentNotifications: currentNotifications,
   };
 
 });
