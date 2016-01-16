@@ -34,6 +34,7 @@ angular.module('nova.services', [])
   };
 
   var isAuth = function(){
+    //if there is a token in the browser's localStorage (which is basically a object)
     return !!$window.localStorage.getItem('com.nova');
   };
 
@@ -56,6 +57,7 @@ angular.module('nova.services', [])
     });
   };
 
+  
   var getStatus = function() {
     return $http({
       method: 'GET',

@@ -1,6 +1,6 @@
 angular.module('nova.auth', [])
 
-.controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify) {
+.controller('AuthController', function ($scope, $rootScope, $window, $state, Auth, Notify, $interval) {
   $scope.user = {};
   $rootScope.unread = $rootScope.unread || 0;
 
@@ -14,6 +14,7 @@ angular.module('nova.auth', [])
         $window.localStorage.setItem('com.nova', token);
         $rootScope.hasAuth = true;
         $state.go('main');
+        //get notifications that are unread
         $scope.checkNotifications();
       })
       .catch(function (error) {
@@ -42,4 +43,6 @@ angular.module('nova.auth', [])
   };
 
   $scope.checkNotifications();
+  //update red notification circle every 1 sec
+  $interval($scope.checkNotifications, 1000);
 });

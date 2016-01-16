@@ -40,7 +40,8 @@ angular.module('nova', [
       templateUrl: "app/notifications/notifications.html",
       controller: "NotificationCtrl"
     });
-
+    
+    //attaches token on each HTTP request(POST and GET)
     $httpProvider.interceptors.push('AttachTokens');
 })
 .controller('AppController',function($rootScope){
@@ -61,7 +62,10 @@ angular.module('nova', [
   return attach;
 })
 
+//below: it will run immediately when it loads the app
+//below makes sures that you are authenticated before you can proceed to other pages 
 .run(function($rootScope, $state, Auth) {
+  //event listener
   $rootScope.$on('$stateChangeStart', function(evt, toState, toParams, fromState, fromParams){
     if (toState.name === 'signin') {
       return;
