@@ -5,7 +5,7 @@ function sendNotification (req, res) {
   var authUser = req.decoded.user;
   var targetUser = req.body.targetUser;
   var newNotification;
-
+  //find the username
   User.findOne({ username: authUser }, function(err, sender) {
     if (err) console.error(err);
 
@@ -24,7 +24,8 @@ function sendNotification (req, res) {
 
         newNotification.save(function(err, notification) {
           if (err) console.error(err);
-
+          
+          //push in id of the notification model into each users associated with the transaction
           sender.notifications.outgoing.push(notification._id);
           target.notifications.incoming.push(notification._id);
 
@@ -57,7 +58,8 @@ function getNotifications(req, res) {
         if (err) console.error(err);
 
         var respNotifications = notifications.map(function(notification) {
-
+          
+          //checks to see if the notification is resolved
           if (!notification.isResolved) {
             return {
               id: notification._id,
@@ -115,18 +117,31 @@ function replyNotification(req, res) {
   });
 }
 
+/**
+ *    
+ *    Checks if the user has any unread notifications
+ *    
+ */
 function checkUnread(req, res) {
+  //what is this decoded? It is an object with User data
   var authUser = req.decoded.user;
+  console.log('Req.Decoded.User is ', authUser);
 
+  //find the User in the Mongo Database
   User.findOne({ username: authUser }, function(err, user) {
+    //if not found in database
     if (err) console.error(err);
-
+    
+    //send 401 if user not found
     if (!user) {
       res.sendStatus(401);
+    //if user is found
     } else {
+      //find any notifications that are incoming
       Notification.find({ _id: { $in: user.notifications.incoming }}, function(err, notifications) {
         if (err) console.error(err);
-
+        
+        //creates a unread notification array
         var unread = notifications.filter(function(notification) {
           return notification.isRead === false;
         }).length;

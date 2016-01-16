@@ -38,6 +38,7 @@ userSchema.methods.hashPassword = function(password, callback) {
 
 userSchema.methods.comparePassword = function(attempt, hash, callback) {
   bcrypt.compare(attempt, hash, function(err, res) {
+    //res is a boolean
     callback(res);
   });
 };

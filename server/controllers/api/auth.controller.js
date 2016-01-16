@@ -4,11 +4,17 @@ var User = require('../../models').User,
 var tokenSecret;
 
 if (process.env.NODE_ENV === undefined) {
+  //set the token secret inside of our config secrets file
   tokenSecret = require('../../config/secrets').authentication.tokenSecret;
 } else {
   tokenSecret = process.env.TOKEN_SECRET;
 }
 
+/**
+ *    Creates token for users    
+ *    @param  {[Object]} user [JSON that gets sent from Client]
+ *    @return {[String]}      [Token that is return to client]
+ */
 var createToken = function(user) {
  return jwt.sign({ user: user.username }, tokenSecret, {
    expiresIn: 86400
@@ -19,7 +25,9 @@ module.exports = {
   signIn: function(req, res) {
     // look for user in database
     User.findOne({'username': req.body.username}, function(err, user) {
+      //if you find a user
       if (user) {
+        //
         user.comparePassword(req.body.password, user.password, function(valid) {
           if (valid) {
             var userToken = createToken(user);

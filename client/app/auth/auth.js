@@ -14,6 +14,7 @@ angular.module('nova.auth', [])
         $window.localStorage.setItem('com.nova', token);
         $rootScope.hasAuth = true;
         $state.go('main');
+        //get notifications that are unread
         $scope.checkNotifications();
       })
       .catch(function (error) {
