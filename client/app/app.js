@@ -6,7 +6,6 @@ angular.module('nova', [
   'nova.update',
   'nova.notifications'
 ])
-
 .config(function($stateProvider, $urlRouterProvider, $httpProvider){
   $urlRouterProvider.otherwise("/signin");
   $stateProvider
@@ -44,7 +43,10 @@ angular.module('nova', [
 
     $httpProvider.interceptors.push('AttachTokens');
 })
-
+.controller('AppController',function($rootScope){
+  $scope.hasAuth = $rootScope.hasAuth;
+  $scope.unread = $rootScope.unread;
+})
 .factory('AttachTokens', function($window){
   var attach = {
     request: function(object) {
