@@ -31,7 +31,8 @@ angular.module('nova', [
     })
     .state('logout', {
       url: "/logout",
-      controller: function($scope, Auth){
+      controller: function($scope, Auth, AppInfo){
+        AppInfo.user = {};
         Auth.signout();
       }
     })

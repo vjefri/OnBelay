@@ -13,7 +13,7 @@ angular.module('nova.auth', [])
       .then(function (data) {
         $window.localStorage.setItem('com.nova', data.token);
         $rootScope.hasAuth = true;
-        console.log(data.id);
+        AppInfo.user.id = data.id;
         Climbers.getClimberById(data.id).then(function(userRes){
           angular.extend(AppInfo.user, userRes);
           $state.go('main');
@@ -28,13 +28,11 @@ angular.module('nova.auth', [])
   $scope.signup = function () {
     Auth.signup($scope.user)
       .then(function (data) {
+        console.log('SIGNUP DATA', data);
         $window.localStorage.setItem('com.nova', data.token);
         $rootScope.hasAuth = true;
-        console.log(data.id);
-        Climbers.getClimberById(data.id).then(function(userRes){
-          angular.extend(AppInfo.user, userRes);
-          $state.go('update');
-        });
+        AppInfo.user.id = data.id;
+        $state.go('update');
       })
       .catch(function (error) {
         console.error(error);

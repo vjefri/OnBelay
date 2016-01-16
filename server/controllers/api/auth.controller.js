@@ -63,7 +63,7 @@ module.exports = {
             if (err) console.error(err);
 
             var token = createToken(user);
-            res.json({success: true, token: userToken, status: user.climb, id:user.id});
+            res.json({success: true, token: token});
           });
         });
       }

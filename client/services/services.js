@@ -14,6 +14,7 @@ angular.module('nova.services', [])
   };
 
   var signup = function(user){
+    console.log(user);
     return $http({
       method: 'POST',
       url: '/api/signup',
