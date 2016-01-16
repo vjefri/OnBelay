@@ -7,10 +7,11 @@ module.exports = {
     User.find({climb: true}, function(err, climbers) {
       if (err) console.error(err);
       var result = climbers.map(function(climber) {
-        
+
         if (climber.username === authUser) return;
 
         return {
+          id: climber.id,
           username: climber.username,
           first: climber.name.first,
           last: climber.name.last,
