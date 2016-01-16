@@ -1,14 +1,13 @@
 <div id='update'>
   <h1>update</h1>
-
   <form name="update-form" ng-submit='update()'>
    <div class="form-group">
-     <!-- <label for="name">Firstname</label> -->
-     <input type='text' id="firstname" class="form-control" ng-model='user.name.first' placeholder="First name..."><br>
-     <!-- <label for="name">Lastname</label> -->
-     <input type='text' id="lastname" class="form-control" ng-model='user.name.last' placeholder="Last name..."><br>
-     <!-- <label for="zip-code">ZIP</label> -->
-     <input type="text" id="zipCode" class="form-control" ng-model='user.zipCode' placeholder="ZIP code..."> <br>
+     <label for="name">Firstname</label>
+     <input type='text' id="firstname" class="form-control" ng-model='user.name.first' placeholder="{{user.name.first}}"><br>
+     <label for="name">Lastname</label>
+     <input type='text' id="lastname" class="form-control" ng-model='user.name.last' placeholder="{{user.name.last}}"><br>
+     <label for="zip-code">ZIP</label>
+     <input type="text" id="zipCode" class="form-control" ng-model='user.zipCode' placeholder="{{user.zipCode}}"> <br>
 
       <label class="radio-inline">
         <input type="radio" ng-model="user.gender" value="male"> Male

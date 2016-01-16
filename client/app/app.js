@@ -31,7 +31,8 @@ angular.module('nova', [
     })
     .state('logout', {
       url: "/logout",
-      controller: function($scope, Auth){
+      controller: function($scope, Auth, AppInfo){
+        AppInfo.user = {};
         Auth.signout();
       }
     })
@@ -40,13 +41,18 @@ angular.module('nova', [
       templateUrl: "app/notifications/notifications.html",
       controller: "NotificationCtrl"
     });
-    
+
     //attaches token on each HTTP request(POST and GET)
     $httpProvider.interceptors.push('AttachTokens');
 })
 .controller('AppController',function($rootScope){
   $scope.hasAuth = $rootScope.hasAuth;
   $scope.unread = $rootScope.unread;
+})
+.factory('AppInfo',function(Climbers){
+  var info = {};
+  info.user = {};
+  return info;
 })
 .factory('AttachTokens', function($window){
   var attach = {
@@ -63,7 +69,7 @@ angular.module('nova', [
 })
 
 //below: it will run immediately when it loads the app
-//below makes sures that you are authenticated before you can proceed to other pages 
+//below makes sures that you are authenticated before you can proceed to other pages
 .run(function($rootScope, $state, Auth) {
   //event listener
   $rootScope.$on('$stateChangeStart', function(evt, toState, toParams, fromState, fromParams){

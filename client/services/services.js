@@ -9,18 +9,19 @@ angular.module('nova.services', [])
       data: user
     })
     .then(function(resp){
-      return resp.data.token;
+      return resp.data;
     });
   };
 
   var signup = function(user){
+    console.log(user);
     return $http({
       method: 'POST',
       url: '/api/signup',
       data: user
     })
     .then(function(resp){
-      return resp.data.token;
+      return resp.data;
     })
     .catch(function(err) {
       $state.go('signup');
@@ -57,7 +58,15 @@ angular.module('nova.services', [])
     });
   };
 
-  
+  var getClimberById = function(id){
+    return $http({
+      method: 'GET',
+      url: "/api/auth/user/climberid?id=" + id
+    }).then(function(res){
+      return res.data;
+    });
+  };
+
   var getStatus = function() {
     return $http({
       method: 'GET',
@@ -82,7 +91,8 @@ angular.module('nova.services', [])
   return {
     getStatus: getStatus,
     updateStatus: updateStatus,
-    getClimbers: getClimbers
+    getClimbers: getClimbers,
+    getClimberById: getClimberById
   };
 
 })
