@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     ObjectId = mongoose.Schema.Types.ObjectId;
 
 var userSchema = mongoose.Schema({
-  username: String,
+  username: { type: String, unique: true },
   password: String,
   name: {
     first: String,
@@ -13,6 +13,7 @@ var userSchema = mongoose.Schema({
   skillLevel: String,
   gender: String,
   climb: { type: Boolean, default: false },
+  pendingReq: Object,
   notifications: {
     incoming: [{ type: ObjectId, ref: 'Notification' }],
     outgoing: [{ type: ObjectId, ref: 'Notification' }]

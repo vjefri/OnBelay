@@ -1,10 +1,29 @@
 <!-- http://bootsnipp.com/snippets/3qexV -->
-
 <div class="container">
-    <section class="switch">
-        <div class="slideThree">
-            <input type="checkbox" value="None" id="slideThree" name="check" checked ng-checked="status" ng-click="updateStatus()" />
-            <label for="slideThree"></label>
+  <section class="switch">
+    <div class="slideThree">
+      <input type="checkbox" value="None" id="slideThree" name="check" checked ng-checked="status" ng-click="updateStatus()" />
+      <label for="slideThree"></label>
+    </div>
+  </section>
+  <div class="row">
+    <div class="[col-md-offset-1 col-md-4 ] climbers" ng-repeat="climber in activeClimbers" ng-if="climber">
+      <div class="[ info-card ]">
+        <img style="width: 100%" src="assets/img/profile-generic.jpg" />
+        <div class="[ info-card-details ] animate">
+          <div class="[ info-card-header ]">
+            <h1> {{climber.first}} {{climber.last}} </h1>
+            <h3> {{climber.skillLevel}} / {{climber.gender}}</h3>
+          </div>
+          <div class="[ info-card-detail ]" ng-if="!pendingReq[climber.username]">
+            <!-- Description -->
+            <p>Looking to climb with some fellow {{climber.skillLevel}} climbers! </p>
+            <button class="climbOnBtn btn btn-primary outline" ng-click="climbOn(climber)">Climb On</button>
+          </div>
+          <div class="[ info-card-detail ]" ng-if="pendingReq[climber.username]">
+            <p> Pending Confirmation </p>
+            <button class="climbOnBtn btn btn-primary cancel outline" ng-click="climbOn(climber)">Cancel</button>
+          </div>
         </div>
     </section>
     <div class="row">

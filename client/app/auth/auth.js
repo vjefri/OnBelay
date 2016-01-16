@@ -8,7 +8,7 @@ angular.module('nova.auth', [])
     $rootScope.hasAuth = true;
   }
 
-  $scope.signin = function () {
+  $scope.signin = function() {
     Auth.signin($scope.user)
       .then(function (data) {
         $window.localStorage.setItem('com.nova', data.token);
@@ -20,12 +20,12 @@ angular.module('nova.auth', [])
           $scope.checkNotifications();
         });
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
       });
   };
 
-  $scope.signup = function () {
+  $scope.signup = function() {
     Auth.signup($scope.user)
       .then(function (data) {
         console.log('SIGNUP DATA', data);
@@ -34,7 +34,7 @@ angular.module('nova.auth', [])
         AppInfo.user.id = data.id;
         $state.go('update');
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
       });
   };
