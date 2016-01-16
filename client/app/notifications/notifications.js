@@ -1,6 +1,6 @@
 angular.module('nova.notifications', [])
 
-  .controller('NotificationCtrl', function($scope, Notify, Climbers) {
+  .controller('NotificationCtrl', function($scope, $interval, Notify, Climbers) {
     $scope.notifications = [];
 
     $scope.getAllNotifications = function() {
@@ -40,5 +40,4 @@ angular.module('nova.notifications', [])
           console.error(err);
         });
     };
-
   });
