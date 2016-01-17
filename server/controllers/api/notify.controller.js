@@ -4,7 +4,9 @@ var User = require('../../models').User,
 function sendNotification (req, res) {
   var authUser = req.decoded.user;
   var targetUser = req.body.targetUser;
+  var notifcationText=req.body.message;
   var newNotification;
+  console.log('NOTIFICATION', req.body.message);
   //find the username
   User.findOne({ username: authUser }, function(err, sender) {
     if (err) console.error(err);
@@ -14,7 +16,7 @@ function sendNotification (req, res) {
     } else {
       User.findOne({ username: targetUser }, function(err, target) {
         
-        console.log("target.username is ", target.username);
+        // console.log("target.username is ", target.username);
         
         newNotification = new Notification({
           sender: {
@@ -24,7 +26,8 @@ function sendNotification (req, res) {
           recipient: { 
             id: target.id._id,
             username: target.username
-          }
+          },
+          message: notificationText
         });
 
         newNotification.save(function(err, notification) {
@@ -51,7 +54,7 @@ function getNotifications(req, res) {
   //get username
   var authUser = req.decoded.user;
   
-  console.log("authUser is ", authUser);
+  // console.log("authUser is ", authUser);
   
   //find that username in the database
   User.findOne({ username: authUser }, function(err, user) {
@@ -66,8 +69,8 @@ function getNotifications(req, res) {
       var copyIncoming = user.notifications.incoming.slice();
       var copyOutgoing = user.notifications.outgoing.slice();
       
-      console.log("incoming in notify.controller is :", user.notifications.incoming);
-      console.log("outgoing in notify.controller is :", user.notifications.outgoing);
+      // console.log("incoming in notify.controller is :", user.notifications.incoming);
+      // console.log("outgoing in notify.controller is :", user.notifications.outgoing);
       
       //combine both notification arrays that contains IDs together
       var both = copyIncoming.concat(copyOutgoing);
@@ -77,7 +80,7 @@ function getNotifications(req, res) {
 
         if (err) console.error(err);
         
-        console.log("notification is ",notifications);
+        // console.log("notification is ",notifications);
         
         //filter all the incoming messages with following return format 
         var incomingNotif = notifications.map(function(notification) {
@@ -135,7 +138,7 @@ function getNotifications(req, res) {
         //   return !!item;
         // });
         
-        console.log("JSON sent is ", {incoming : incomingNotif, outgoing : outgoingNotif});
+        // console.log("JSON sent is ", {incoming : incomingNotif, outgoing : outgoingNotif});
         
         //send back the array in a JSON to client
         res.json({incoming : incomingNotif, outgoing : outgoingNotif});
@@ -197,7 +200,7 @@ function replyNotification(req, res) {
 function checkUnread(req, res) {
   //what is this decoded? It is an object with User data
   var authUser = req.decoded.user;
-  console.log('Req.Decoded.User is ', authUser);
+  // console.log('Req.Decoded.User is ', authUser);
 
   //find the User in the Mongo Database
   User.findOne({ username: authUser }, function(err, user) {
