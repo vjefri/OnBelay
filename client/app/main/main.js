@@ -19,8 +19,7 @@ angular.module('nova.main', [])
             climbersReqObj[climber.id] = climber;
           }
         });
-
-        //remove climbers from activeClimbers that are NOT in climbersReqObj
+        //remove climbers from activeClimbers that are not in our request object
         for (key in $scope.activeClimbers) {
           if (climbersReqObj[key] === undefined) {
             delete $scope.activeClimbers[key];
@@ -75,4 +74,5 @@ angular.module('nova.main', [])
   $scope.$on('$destroy', function() {
     $interval.cancel(intRef);
   });
+
 });

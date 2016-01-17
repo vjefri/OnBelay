@@ -1,6 +1,7 @@
+
 var User = require('../../models').User;
 
-function updateProfile (req, res) {
+exports.updateProfile = function(req, res) {
   var authUser = req.decoded.user;
   //find User
   User.findOne({ username: authUser }, function(err, user) {
@@ -21,14 +22,4 @@ function updateProfile (req, res) {
       });
     }
   });
-}
-
-// save the pending climber to the pendingReq object in user's model
-function updatePendingClimbers (req, res) {
-
-}
-
-module.exports = {
-  updateProfile: updateProfile,
-  updatePendingClimbers: updatePendingClimbers
 };
