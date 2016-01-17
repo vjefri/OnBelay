@@ -13,13 +13,18 @@ function sendNotification (req, res) {
       res.json({ success: false, reason: 'User not found' });
     } else {
       User.findOne({ username: targetUser }, function(err, target) {
-
+        
+        console.log("target.username is ", target.username);
+        
         newNotification = new Notification({
           sender: {
             id: sender.id._id,
             username: sender.username
           },
-          recipient: target._id
+          recipient: { 
+            id: target.id._id,
+            username: target.username
+          }
         });
 
         newNotification.save(function(err, notification) {
@@ -43,42 +48,109 @@ function sendNotification (req, res) {
 }
 
 function getNotifications(req, res) {
+  //get username
   var authUser = req.decoded.user;
-
+  
+  console.log("authUser is ", authUser);
+  
+  //find that username in the database
   User.findOne({ username: authUser }, function(err, user) {
 
     if (err) console.error(err);
-
+    
+    //if the user isn't found, send back a JSON containing falsey info to client
     if (!user) {
       res.json({ success: false, reason: 'User does not exist' });
+    //if the user is found
     } else {
-
-      Notification.find({ _id: { $in: user.notifications.incoming }}, function(err, notifications) {
+      var copyIncoming = user.notifications.incoming.slice();
+      var copyOutgoing = user.notifications.outgoing.slice();
+      
+      console.log("incoming in notify.controller is :", user.notifications.incoming);
+      console.log("outgoing in notify.controller is :", user.notifications.outgoing);
+      
+      //combine both notification arrays that contains IDs together
+      var both = copyIncoming.concat(copyOutgoing);
+      
+      //get all the notifications of that user from Notification Mongo model
+      Notification.find({ _id: { $in: both }}, function(err, notifications) {
 
         if (err) console.error(err);
-
-        var respNotifications = notifications.map(function(notification) {
-          
-          //checks to see if the notification is resolved
-          if (!notification.isResolved) {
+        
+        console.log("notification is ",notifications);
+        
+        //filter all the incoming messages with following return format 
+        var incomingNotif = notifications.map(function(notification) {
+          if ( notification.sender.username !== authUser  && !notification.isResolved) {
             return {
               id: notification._id,
               sender: {
                 username: notification.sender.username
               },
               isRead: notification.isRead,
+              isAccepted: notification.isAccepted,
               createdAt: notification.createdAt
             };
           }
         }).filter(function(item) {
           return !!item;
         });
-        res.json(respNotifications);
+        
+        //filter all the outgoing messages with following return format
+        var outgoingNotif = notifications.map(function(notification) {
+          if ( ( notification.sender.username === authUser ) && !notification.isResolved) {
+            return {
+              id: notification._id,
+              sender: {
+                username: notification.sender.username
+              },
+              recipient : notification.recipient.username,
+              isRead: notification.isRead,
+              isAccepted: notification.isAccepted,
+              createdAt: notification.createdAt
+            };
+          }
+        }).filter(function(item) {
+          return !!item;
+        });
+        
+
+        
+        //save incoming notifications in a filtered array
+        // var respNotifications = notifications.map(function(notification) {
+          
+        //   //checks to see if the notification is resolved
+        //   if (!notification.isResolved) {
+        //     return {
+        //       id: notification._id,
+        //       sender: {
+        //         username: notification.sender.username
+        //       },
+        //       isRead: notification.isRead,
+        //       createdAt: notification.createdAt
+        //     };
+        //   }
+        //   //filter all the items that are empty
+        // }).filter(function(item) {
+        //   return !!item;
+        // });
+        
+        console.log("JSON sent is ", {incoming : incomingNotif, outgoing : outgoingNotif});
+        
+        //send back the array in a JSON to client
+        res.json({incoming : incomingNotif, outgoing : outgoingNotif});
       });
     }
   });
 }
 
+/**
+ *    Marks all the incoming notifications as "isRead" in the database.
+ *    Function is invoked right after user visits the notification page.
+ *    @param  {req} req 
+ *    @param  {res} res 
+ *    @return {JSON}     to client
+ */
 function readNotifications(req, res) {
   var authUser = req.decoded.user;
 
