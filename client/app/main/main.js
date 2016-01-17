@@ -4,7 +4,7 @@ angular.module('nova.main', [])
   $scope.activeClimbers = {};
   $scope.status = false;
   $scope.invitationMessage='';
-  $scope.climbOnClicked = false;
+  $scope.climbOnClicked = {};
 
   angular.extend($scope, AppInfo);
 
@@ -47,8 +47,8 @@ angular.module('nova.main', [])
   };
 
   $scope.climbOn = function(climber) {
-    console.log($scope.climbOnClicked);
-    $scope.climbOnClicked=true;
+    
+    $scope.climbOnClicked[climber.id] = true;
   };
 
   $scope.sendInvitationToClimb = function(climber, message) {
