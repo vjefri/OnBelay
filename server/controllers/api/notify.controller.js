@@ -58,7 +58,7 @@ function getNotifications(req, res) {
 
     if (err) console.error(err);
     
-    //if the user isn't found, send back a JSON containing falsey info
+    //if the user isn't found, send back a JSON containing falsey info to client
     if (!user) {
       res.json({ success: false, reason: 'User does not exist' });
     //if the user is found
@@ -79,7 +79,7 @@ function getNotifications(req, res) {
         
         console.log("notification is ",notifications);
         
-        //get all the incoming notifications and filter all the incoming messages
+        //filter all the incoming messages with following return format 
         var incomingNotif = notifications.map(function(notification) {
           if ( notification.sender.username !== authUser  && !notification.isResolved) {
             return {
@@ -96,8 +96,9 @@ function getNotifications(req, res) {
           return !!item;
         });
         
+        //filter all the outgoing messages with following return format
         var outgoingNotif = notifications.map(function(notification) {
-          if (notification.sender.username === authUser && !notification.isResolved) {
+          if ( ( notification.sender.username === authUser ) && !notification.isResolved) {
             return {
               id: notification._id,
               sender: {
@@ -136,13 +137,20 @@ function getNotifications(req, res) {
         
         console.log("JSON sent is ", {incoming : incomingNotif, outgoing : outgoingNotif});
         
-        //send back the array in a JSON
+        //send back the array in a JSON to client
         res.json({incoming : incomingNotif, outgoing : outgoingNotif});
       });
     }
   });
 }
 
+/**
+ *    Marks all the incoming notifications as "isRead" in the database.
+ *    Function is invoked right after user visits the notification page.
+ *    @param  {req} req 
+ *    @param  {res} res 
+ *    @return {JSON}     to client
+ */
 function readNotifications(req, res) {
   var authUser = req.decoded.user;
 

@@ -147,7 +147,7 @@ angular.module('nova.services', [])
       method: 'PUT',
       url: '/api/auth/user/notifications/read'
     }).then(function(resp) {
-      console.log(resp.data);
+      //console.log(resp.data);
       $rootScope.unread = 0;
       return resp.data;
     });
