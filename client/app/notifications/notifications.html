@@ -1,43 +1,45 @@
 <div class="container">
   <div class="row">
-    <div class="[ col-md-12 incoming notifications ]">
+    <div class="[ col-md-12 ]">
       <h3 class="text-center"> Incoming </h3>
       <hr>
     </div>
-    <div class="[ col-md-offset-1 col-md-4 ]" class='notify' ng-repeat="climber in notifications">
-      <div class="[ info-card ]">
+    <div class="[ col-md-3 ]" ng-repeat="climber in notifications">
+      <div class="[ notif-info-card ]">
         <!-- we need to fix image -->
-        <img style="width: 100%" src="assets/img/profile-generic.jpg" />
-        <div class="[ info-card-details ] animate">
-          <div class="[ info-card-header ]">
-            <h1> {{climber.sender.username}} </h1>
-            <h3> wants to climb</h3>
-          </div>
-          <div class="[ info-card-detail ]">
+        <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
+        <div class="[ notif-info-card-details ] animate">
+          <h1> Jon Snow </h1>
+          <h3> Awaiting Reply</h3>
+          <h4> Expert / Male </h4>
+          <h4> Los Angeles, CA </h4>
+          <h4> 90031 </h4>
+          <div class="[ ]">
             <!-- Description -->
-            <button class='climbOnBtn btn btn-primary outline' ng-click='climbOn(climber)'>Climb On</button>
+            <button class='climbOnBtn btn btn-primary outline' ng-click='climbOn(climber)'>Confirm</button>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="[ col-md-12 incoming notifications ]">
+    <div class="[ col-md-12 ]">
       <h3 class="text-center"> Outgoing </h3>
       <hr>
     </div>
-    <div class="[col-md-offset-1 col-md-4 ]" class='notify' ng-repeat="climber in notifications">
-      <div class="[ info-card ]">
+    <div class="[ col-md-3 ]" ng-repeat="climber in notifications">
+      <div class="[ notif-info-card ]">
         <!-- we need to fix image -->
-        <img style="width: 100%" src="assets/img/profile-generic.jpg" />
-        <div class="[ info-card-details ] animate">
-          <div class="[ info-card-header ]">
-            <h1> {{climber.sender.username}} </h1>
-            <h3> wants to climb</h3>
-          </div>
-          <div class="[ info-card-detail ]">
+        <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
+        <div class="[ notif-info-card-details ] animate">
+          <h1> Jon Snow </h1>
+          <h3> Pending Confirmation</h3>
+          <h4> Expert / Male </h4>
+          <h4> Los Angeles, CA </h4>
+          <h4> 90031 </h4>
+          <div class="[ ]">
             <!-- Description -->
-            <button class='climbOnBtn btn btn-primary outline' ng-click='climbOn(climber)'>Climb On</button>
+            <button class='climbOnBtn btn btn-primary outline' ng-click='climbOn(climber)'> Cancel </button>
           </div>
         </div>
       </div>
