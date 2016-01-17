@@ -36,6 +36,8 @@ angular.module('nova.auth', [])
 	  $state.go('signup');
 	  $scope.user.password = '';
 	  $scope.user.username = '';
+	  var usernameInput = angular.element( document.querySelector( '#username' ) );
+          usernameInput.attr('placeholder',"Select a different username that does not already exist.");
 	}
       })
       .catch(function (error) {
