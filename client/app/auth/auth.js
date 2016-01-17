@@ -25,7 +25,7 @@ angular.module('nova.auth', [])
   $scope.signup = function () {
     Auth.signup($scope.user)
       .then(function (data) {
-        if (data) {	  
+        if (data) {
           console.log('SIGNUP DATA', data);
           $window.localStorage.setItem('onBelay.token', data.token);
           $window.localStorage.setItem('onBelay.userId', data.id);

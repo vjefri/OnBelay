@@ -44,11 +44,7 @@ angular.module('nova', [
     //attaches token on each HTTP request(POST and GET)
     $httpProvider.interceptors.push('AttachTokens');
 })
-.controller('AppController',function($rootScope){
-  $scope.hasAuth = $rootScope.hasAuth;
-  $scope.unread = $rootScope.unread;
-})
-.factory('AppInfo',function($window, $interval, Climbers){
+.factory('AppInfo',function($window, $rootScope, $interval, Climbers){
   var info = {};
   info.user = {};
 
@@ -59,17 +55,18 @@ angular.module('nova', [
     }
   }
   //update on interval
-  var runUpdate = function() {
+  var doUpdate = function() {
     //update user
     if(info.user.id !== undefined){
       Climbers.getClimberById(info.user.id).then(function(userRes){
         angular.extend(info.user, userRes);
+        $rootScope.username = userRes.username;
       });
     }
   };
   //run the update process on load then on an interval
-  runUpdate();
-  var intRef = $interval(runUpdate, 3000);
+  doUpdate();
+  var intRef = $interval(doUpdate, 3000);
 
   return info;
 })
