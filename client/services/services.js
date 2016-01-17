@@ -1,6 +1,6 @@
 angular.module('nova.services', [])
 
-.factory('Auth', function($http, $rootScope, $state, $window){
+.factory('Auth', function($http, $rootScope, $state, $window, AppInfo){
 
   var signin = function(user){
     return $http({
@@ -30,13 +30,16 @@ angular.module('nova.services', [])
 
   var signout = function(){
     $rootScope.hasAuth = false;
-    $window.localStorage.removeItem('com.nova');
+    $window.localStorage.removeItem('onBelay.token');
+    $window.localStorage.removeItem('onBelay.userId');
+    AppInfo.user = {};
+    console.log('user has signed out!');
     $state.go('signin');
   };
 
   var isAuth = function(){
     //if there is a token in the browser's localStorage (which is basically a object)
-    return !!$window.localStorage.getItem('com.nova');
+    return !!$window.localStorage.getItem('onBelay.token');
   };
 
   return {
@@ -162,10 +165,10 @@ angular.module('nova.services', [])
       return res.data;
     });
   };
-  
+
   var currentNotifications = [];
 
-  var updateNotfications = function(){ 
+  var updateNotfications = function(){
     return $http({
       method: 'GET',
       url: '/api/auth/user/notifications/incoming'

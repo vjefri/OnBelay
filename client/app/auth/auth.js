@@ -11,14 +11,16 @@ angular.module('nova.auth', [])
   $scope.signin = function () {
     Auth.signin($scope.user)
       .then(function (data) {
-        $window.localStorage.setItem('com.nova', data.token);
-        $rootScope.hasAuth = true;
+        $window.localStorage.setItem('onBelay.token', data.token);
+        $window.localStorage.setItem('onBelay.userId', data.id);
         AppInfo.user.id = data.id;
-        Climbers.getClimberById(data.id).then(function(userRes){
-          angular.extend(AppInfo.user, userRes);
-          $state.go('main');
-          $scope.checkNotifications();
-        });
+        $rootScope.hasAuth = true;
+        $state.go('main');
+        // Climbers.getClimberById(data.id).then(function(userRes){
+        //   angular.extend(AppInfo.user, userRes);
+        //   $state.go('main');
+        //   $scope.checkNotifications();
+        // });
       })
       .catch(function (error) {
         console.error(error);
@@ -29,9 +31,10 @@ angular.module('nova.auth', [])
     Auth.signup($scope.user)
       .then(function (data) {
         console.log('SIGNUP DATA', data);
-        $window.localStorage.setItem('com.nova', data.token);
-        $rootScope.hasAuth = true;
+        $window.localStorage.setItem('onBelay.token', data.token);
+        $window.localStorage.setItem('onBelay.userId', data.id);
         AppInfo.user.id = data.id;
+        $rootScope.hasAuth = true;
         $state.go('update');
       })
       .catch(function (error) {

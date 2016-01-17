@@ -32,7 +32,6 @@ angular.module('nova', [
     .state('logout', {
       url: "/logout",
       controller: function($scope, Auth, AppInfo){
-        AppInfo.user = {};
         Auth.signout();
       }
     })
@@ -57,7 +56,7 @@ angular.module('nova', [
 .factory('AttachTokens', function($window){
   var attach = {
     request: function(object) {
-      var jwt = $window.localStorage.getItem('com.nova');
+      var jwt = $window.localStorage.getItem('onBelay.token');
       if (jwt) {
         object.headers['x-access-token'] = jwt;
       }
