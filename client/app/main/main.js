@@ -8,13 +8,6 @@ angular.module('nova.main', [])
 
   angular.extend($scope, AppInfo);
 
-  if(AppInfo.user.id === undefined){
-    var tempId = $window.localStorage.getItem('onBelay.userId');
-    if(tempId !== null){
-      AppInfo.user.id = tempId;
-    }
-  }
-
   $scope.getActiveClimbers = function() {
     Climbers.getClimbers()
       .then(function(climbersReqArr) {
@@ -76,13 +69,6 @@ angular.module('nova.main', [])
   var runUpdate = function() {
     //update active climbers
     $scope.getActiveClimbers();
-    //update user in app info
-    if(AppInfo.user.id !== undefined){
-      Climbers.getClimberById(AppInfo.user.id).then(function(userRes){
-        angular.extend(AppInfo.user, userRes);
-      });
-    }
-
   };
   //run the update process on load then on an interval
   runUpdate();
