@@ -13,7 +13,9 @@ function sendNotification (req, res) {
       res.json({ success: false, reason: 'User not found' });
     } else {
       User.findOne({ username: targetUser }, function(err, target) {
-
+        
+        console.log("target.username is ", target.username);
+        
         newNotification = new Notification({
           sender: {
             id: sender.id._id,
@@ -21,7 +23,7 @@ function sendNotification (req, res) {
           },
           recipient: { 
             id: target.id._id,
-            username: targetUser
+            username: target.username
           }
         });
 
@@ -101,7 +103,7 @@ function getNotifications(req, res) {
               sender: {
                 username: notification.sender.username
               },
-              recipient : notification.recipient,
+              recipient : notification.recipient.username,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
               createdAt: notification.createdAt
