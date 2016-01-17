@@ -19,7 +19,10 @@ function sendNotification (req, res) {
             id: sender.id._id,
             username: sender.username
           },
-          recipient: target._id
+          recipient: { 
+            id: target.id._id,
+            username: targetUser
+          }
         });
 
         newNotification.save(function(err, notification) {
