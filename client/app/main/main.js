@@ -3,6 +3,8 @@ angular.module('nova.main', [])
 .controller('MainController', function($scope, $interval, Climbers, Notify, Auth, AppInfo) {
   $scope.activeClimbers = {};
   $scope.status = false;
+  $scope.invitationMessage='';
+  $scope.climbOn='false'
 
   angular.extend($scope, AppInfo);
 
@@ -45,14 +47,20 @@ angular.module('nova.main', [])
   };
 
   $scope.climbOn = function(climber) {
-    Notify.sendNotification(climber)
+    $scope.climbOn=true;
+  };
+
+  $scope.sendInvitationToClimb = function(climber, message) {
+    console.log('SENT INVITATION');
+    Notify.sendNotification(climber, message)
       .then(function(res) {
-        console.log(res);
+        $scope.climbOn=false;
+        $scope.invitationMessage='';
       })
       .catch(function(err) {
         console.error(err);
       });
-  };
+  }
 
   var runUpdate = function() {
     $scope.getActiveClimbers();
