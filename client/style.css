@@ -3,6 +3,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-weight:300;
+}
+
 header {
   position: fixed;
   width: 100%;
@@ -29,7 +33,6 @@ nav {
 nav a {
   display: inline-block;
   font-size: 2rem;
-  font-weight: 100;
   color: #fff;
   margin-right: 2.5rem;
 }
@@ -77,6 +80,12 @@ nav a:hover, nav a:active, nav a:focus, nav a:visited {
 
 nav a:last-child {
   margin-right: 0;
+}
+
+#userGreeting {
+  clear: both;
+  text-align: right;
+  color:#FFF;
 }
 
 #signin, #signup, #update{

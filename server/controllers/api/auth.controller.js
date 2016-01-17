@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === undefined) {
 }
 
 /**
- *    Creates token for users    
+ *    Creates token for users
  *    @param  {[Object]} user [JSON that gets sent from Client]
  *    @return {[String]}      [Token that is return to client]
  */
@@ -61,7 +61,7 @@ module.exports = {
           newUser.password = hash;
           newUser.save(function(err, user) {
             if (err) console.error(err);
-            
+
             var token = createToken(user);
             res.json({success: true, token: token, status: newUser.climb, id: newUser.id});
           });
