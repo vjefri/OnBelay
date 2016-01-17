@@ -16,11 +16,6 @@ angular.module('nova.auth', [])
         AppInfo.user.id = data.id;
         $rootScope.hasAuth = true;
         $state.go('main');
-        // Climbers.getClimberById(data.id).then(function(userRes){
-        //   angular.extend(AppInfo.user, userRes);
-        //   $state.go('main');
-        //   $scope.checkNotifications();
-        // });
       })
       .catch(function (error) {
         console.error(error);

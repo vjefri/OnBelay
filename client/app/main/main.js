@@ -1,12 +1,19 @@
 angular.module('nova.main', [])
 
-.controller('MainController', function($scope, $interval, Climbers, Notify, Auth, AppInfo) {
+.controller('MainController', function($scope, $interval, $window, Climbers, Notify, Auth, AppInfo) {
   $scope.activeClimbers = {};
   $scope.status = false;
   $scope.invitationMessage='';
-  $scope.climbOnClicked=false
+  $scope.climbOnClicked = false;
 
   angular.extend($scope, AppInfo);
+
+  if(AppInfo.user.id === undefined){
+    var tempId = $window.localStorage.getItem('onBelay.userId');
+    if(tempId !== null){
+      AppInfo.user.id = tempId;
+    }
+  }
 
   $scope.getActiveClimbers = function() {
     Climbers.getClimbers()
@@ -61,16 +68,29 @@ angular.module('nova.main', [])
       .catch(function(err) {
         console.error(err);
       });
-  }
-
-  var runUpdate = function() {
-    $scope.getActiveClimbers();
-    $scope.getStatus();
   };
 
-  runUpdate();
-  var intRef = $interval(runUpdate, 1000);
+  //get the initial status of the current user
+  $scope.getStatus();
 
+  //update process for main run on interval
+  var runUpdate = function() {
+    //update active climbers
+    $scope.getActiveClimbers();
+    //update user in app info
+    if(AppInfo.user.id !== undefined){
+      Climbers.getClimberById(AppInfo.user.id).then(function(userRes){
+        angular.extend(AppInfo.user, userRes);
+      });
+    }
+
+  };
+  //run the update process on load then on an interval
+  runUpdate();
+  var intRef = $interval(runUpdate, 3000);
+
+  //destroy the update process running on interval, otherwise $interval
+  //will persist after the controller is destroyed!
   $scope.$on('$destroy', function() {
     $interval.cancel(intRef);
   });
