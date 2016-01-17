@@ -47,6 +47,7 @@ module.exports = {
       if (err) console.error(err);
 
       if (user) {
+	res.status(401);
         res.json({
           success: false,
           reason: 'User with that username already exists'
