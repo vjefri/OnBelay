@@ -48,9 +48,29 @@ angular.module('nova', [
   $scope.hasAuth = $rootScope.hasAuth;
   $scope.unread = $rootScope.unread;
 })
-.factory('AppInfo',function(Climbers){
+.factory('AppInfo',function($window, $interval, Climbers){
   var info = {};
   info.user = {};
+
+  if(info.user.id === undefined){
+    var tempId = $window.localStorage.getItem('onBelay.userId');
+    if(tempId !== null){
+      info.user.id = tempId;
+    }
+  }
+  //update on interval
+  var runUpdate = function() {
+    //update user
+    if(info.user.id !== undefined){
+      Climbers.getClimberById(info.user.id).then(function(userRes){
+        angular.extend(info.user, userRes);
+      });
+    }
+  };
+  //run the update process on load then on an interval
+  runUpdate();
+  var intRef = $interval(runUpdate, 3000);
+
   return info;
 })
 .factory('AttachTokens', function($window){

@@ -4,13 +4,7 @@ angular.module('nova.update', [])
   $scope.user = {};
   $scope.user.name = {};
 
-  if(AppInfo.user.id === undefined){
-    var tempId = $window.localStorage.getItem('onBelay.userId');
-    if(tempId !== null){
-      AppInfo.user.id = tempId;
-    }
-  }
-
+  //in case user goes to update before polling completes... not very DRY unfortunately
   if(AppInfo.user.id !== undefined){
     Climbers.getClimberById(AppInfo.user.id).then(function(userRes){
       angular.extend(AppInfo.user, userRes);
