@@ -184,5 +184,5 @@ angular.module('nova.services', [])
     replyToClimber: replyToClimber,
     currentNotifications: currentNotifications,
   };
-
+  
 });

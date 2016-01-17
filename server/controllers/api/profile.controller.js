@@ -1,3 +1,4 @@
+
 var User = require('../../models').User;
 
 exports.updateProfile = function(req, res) {
