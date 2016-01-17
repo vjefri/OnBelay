@@ -59,7 +59,6 @@ angular.module('nova.main', [])
   };
 
   $scope.sendInvitationToClimb = function(climber, message) {
-    console.log('SENT INVITATION', message);
     Notify.sendNotification(climber, message)
       .then(function(res) {
         $scope.climbOnClicked=false;

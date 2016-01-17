@@ -118,11 +118,11 @@ angular.module('nova.services', [])
 
 .factory('Notify', function($http, $rootScope, $interval) {
 
-  var sendNotification = function(climber) {
+  var sendNotification = function(climber,message) {
     return $http({
       method: 'POST',
       url: '/api/auth/user/notifications/create',
-      data: {targetUser: climber}
+      data: {targetUser: climber, message:message}
     }).then(function(res) {
       return res.data;
     });
