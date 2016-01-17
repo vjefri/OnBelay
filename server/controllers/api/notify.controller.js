@@ -46,6 +46,8 @@ function getNotifications(req, res) {
   //get username
   var authUser = req.decoded.user;
   
+  console.log("authUser is ", authUser);
+  
   //find that username in the database
   User.findOne({ username: authUser }, function(err, user) {
 
@@ -56,29 +58,81 @@ function getNotifications(req, res) {
       res.json({ success: false, reason: 'User does not exist' });
     //if the user is found
     } else {
-      //get all the notifications of that user
-      Notification.find({ _id: { $in: user.notifications.incoming }}, function(err, notifications) {
+      var copyIncoming = user.notifications.incoming.slice();
+      var copyOutgoing = user.notifications.outgoing.slice();
+      
+      console.log("incoming in notify.controller is :", user.notifications.incoming);
+      console.log("outgoing in notify.controller is :", user.notifications.outgoing);
+      
+      //combine both notification arrays that contains IDs together
+      var both = copyIncoming.concat(copyOutgoing);
+      
+      //get all the notifications of that user from Notification Mongo model
+      Notification.find({ _id: { $in: both }}, function(err, notifications) {
 
         if (err) console.error(err);
         
-        //save notifications in an array
-        var respNotifications = notifications.map(function(notification) {
-          
-          //checks to see if the notification is resolved
-          if (!notification.isResolved) {
+        console.log("notification is ",notifications);
+        
+        //get all the incoming notifications and filter all the incoming messages
+        var incomingNotif = notifications.map(function(notification) {
+          if ( notification.sender.username !== authUser  && !notification.isResolved) {
             return {
               id: notification._id,
               sender: {
                 username: notification.sender.username
               },
               isRead: notification.isRead,
+              isAccepted: notification.isAccepted,
               createdAt: notification.createdAt
             };
           }
         }).filter(function(item) {
           return !!item;
         });
-        res.json(respNotifications);
+        
+        var outgoingNotif = notifications.map(function(notification) {
+          if (notification.sender.username === authUser && !notification.isResolved) {
+            return {
+              id: notification._id,
+              sender: {
+                username: notification.sender.username
+              },
+              recipient : notification.recipient,
+              isRead: notification.isRead,
+              isAccepted: notification.isAccepted,
+              createdAt: notification.createdAt
+            };
+          }
+        }).filter(function(item) {
+          return !!item;
+        });
+        
+
+        
+        //save incoming notifications in a filtered array
+        // var respNotifications = notifications.map(function(notification) {
+          
+        //   //checks to see if the notification is resolved
+        //   if (!notification.isResolved) {
+        //     return {
+        //       id: notification._id,
+        //       sender: {
+        //         username: notification.sender.username
+        //       },
+        //       isRead: notification.isRead,
+        //       createdAt: notification.createdAt
+        //     };
+        //   }
+        //   //filter all the items that are empty
+        // }).filter(function(item) {
+        //   return !!item;
+        // });
+        
+        console.log("JSON sent is ", {incoming : incomingNotif, outgoing : outgoingNotif});
+        
+        //send back the array in a JSON
+        res.json({incoming : incomingNotif, outgoing : outgoingNotif});
       });
     }
   });
