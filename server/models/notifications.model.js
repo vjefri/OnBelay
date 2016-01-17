@@ -7,7 +7,7 @@ var notificationSchema = mongoose.Schema({
     username: String,
   },
   recipient: { 
-    id: {type: ObjectId, ref: 'User'},
+    id: { type: ObjectId, ref: 'User' },
     username: String,
   },
   // recipient : { type: String, ref: 'User'},
