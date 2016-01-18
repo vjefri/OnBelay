@@ -1,6 +1,6 @@
 angular.module('nova.auth', [])
 
-.controller('AuthController', function ($scope, $rootScope, $window, $state, $interval, Auth, Notify, AppInfo, Climbers) {
+.controller('AuthController', function (ngDialog, $scope, $rootScope, $window, $state, $interval, Auth, Notify, AppInfo, Climbers) {
   $scope.user = {};
   $rootScope.unread = $rootScope.unread || 0;
 
@@ -36,13 +36,22 @@ angular.module('nova.auth', [])
 	  $state.go('signup');
 	  $scope.user.password = '';
 	  $scope.user.username = '';
-	  var usernameInput = angular.element( document.querySelector( '#username' ) );
-          usernameInput.attr('placeholder',"Select a different username that does not already exist.");
+    //show dialog to user that the user is taken
+    $scope.showDialog();
+	  // var usernameInput = angular.element( document.querySelector( '#username' ) );
+   //        usernameInput.attr('placeholder',"Select a different username that does not already exist.");
 	}
       })
       .catch(function (error) {
         console.error(error);
       });
+  };
+
+  /**
+   *    Shows the Dialog using ngDialog indicating to user that the username is taken.
+   */
+  $scope.showDialog = function() {
+    ngDialog.open({template: '<p>Username is already taken! Please try again!</p>', plain: true });
   };
 
   $scope.checkNotifications = function() {
