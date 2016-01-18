@@ -5,6 +5,9 @@ var notificationSchema = mongoose.Schema({
   sender: {
     id: { type: ObjectId, ref: 'User' },
     username: String,
+    zipCode: Number,
+    skillLevel: String,
+    gender: String, 
   },
   recipient: { 
     id: { type: ObjectId, ref: 'User' },

@@ -6,7 +6,7 @@ function sendNotification (req, res) {
   var targetUser = req.body.targetUser;
   var notifcationText = req.body.message;
   var newNotification;
-  console.log('NOTIFICATION', req.body.message);
+  
   //find the username
   User.findOne({ username: authUser }, function(err, sender) {
     if (err) console.error(err);
@@ -16,19 +16,21 @@ function sendNotification (req, res) {
     } else {
       User.findOne({ username: targetUser }, function(err, target) {
 
-        // console.log("target.username is ", target.username);
-
         newNotification = new Notification({
           sender: {
-            id: sender.id._id,
-            username: sender.username
+            // id: sender.id._id,
+            username: sender.username,
+            zipCode: sender.zipCode,
+            skillLevel: sender.skillLevel,
+            gender: sender.gender
           },
           recipient: {
-            id: target.id._id,
+            // id: target.id._id,
             username: target.username
           },
           message: notifcationText
         });
+
 
         newNotification.save(function(err, notification) {
           if (err) console.error(err);
@@ -88,8 +90,13 @@ function getNotifications(req, res) {
             return {
               id: notification._id,
               sender: {
-                username: notification.sender.username
+                // id: notification.sender.id._id,
+                username: notification.sender.username,
+                zipCode: notification.sender.zipCode,
+                skillLevel: notification.sender.skillLevel,
+                gender: notification.sender.gender
               },
+              message: notification.message,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
               createdAt: notification.createdAt
@@ -107,7 +114,13 @@ function getNotifications(req, res) {
               sender: {
                 username: notification.sender.username
               },
-              recipient : notification.recipient.username,
+              recipient:{
+                // id: notifction.recipient.id._id,
+                username: notification.recipient.username,
+                zipCode: notification.recipient.zipCode,
+                skillLevel: notification.recipient.skillLevel,
+                gender: notification.recipient.gender
+              },
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
               createdAt: notification.createdAt
