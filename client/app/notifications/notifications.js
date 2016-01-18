@@ -1,8 +1,8 @@
 angular.module('nova.notifications', [])
 
   .controller('NotificationCtrl', function($scope, $interval, Notify, Climbers) {
-    $scope.notifications = [];
-
+    $scope.notifications = {};
+    angular.extend($scope.notifications, Notify.currentNotifications);
     $scope.getAllNotifications = function() {
       Notify.fetchAllNotifications()
         .then(function(res) {
