@@ -55,7 +55,6 @@ angular.module('nova.main', ['ngDialog'])
   $scope.sendInvitationToClimb = function(climber, message) {
     Notify.sendNotification(climber, message)
       .then(function(res) {
-        $scope.climbOnClicked=false;
         $scope.invitationMessage='';
       })
       .catch(function(err) {
