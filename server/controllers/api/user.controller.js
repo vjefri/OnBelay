@@ -14,7 +14,7 @@ module.exports.findActiveClimbers = function(req, res) {
       return helpers.buildUser(climber);
     });
     //remove current user from Active Climbers
-    resultArray.filter(function(climber){
+    resultArray = resultArray.filter(function(climber){
       if (climber.id === authUserId){
         return false;
       }
