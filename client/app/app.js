@@ -7,7 +7,7 @@ angular.module('nova', [
   'nova.notifications'
 ])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider){
-  $urlRouterProvider.otherwise("/signin");
+  $urlRouterProvider.otherwise("/main");
   $stateProvider
     .state('main', {
       url: "/main",
@@ -89,10 +89,10 @@ angular.module('nova', [
 .run(function($rootScope, $state, Auth) {
   //event listener
   $rootScope.$on('$stateChangeStart', function(evt, toState, toParams, fromState, fromParams){
-    if (toState.name === 'signin') {
+    if (toState.name === 'signin' || toState.name === 'signup') {
       return;
     }
-    if (!Auth.isAuth() && toState.name !== 'signup'){
+    if (!Auth.isAuth()){
       evt.preventDefault();
       $state.go('signin');
     }
