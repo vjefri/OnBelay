@@ -1,48 +1,44 @@
 <div class="container">
-  <div class="row">
-    <div class="[ col-md-12 ]">
-      <h3 class="text-center"> Incoming </h3>
-      <hr>
-    </div>
-    <div class="[ col-md-3 ]" ng-repeat="climber in notifications">
-      <div class="[ notif-info-card ]">
-        <!-- we need to fix image -->
-        <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
-        <div class="[ notif-info-card-details ] animate">
-          <h1> Jon Snow </h1>
-          <h3> Awaiting Reply</h3>
-          <h4> Expert / Male </h4>
-          <h4> Los Angeles, CA </h4>
-          <h4> 90031 </h4>
-          <div class="[ ]">
-            <!-- Description -->
-            <button class='climbOnBtn btn btn-primary outline' ng-click='climbOn(climber)'>Confirm</button>
-          </div>
+    <!-- Incoming Messages (People that want to climb with me) -->
+    <div class="row">
+        <h3 class="text-center"> Incoming </h3>
+        <hr>
+        <div class="[ col-md-3 ]" ng-repeat="climber in notifications.incoming">
+            <div class="[ notif-info-card ]">
+                <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
+                <div class="[ notif-info-card-details ] animate">
+                    <h3> {{climber.sender.username}}</h3>
+                    <h4> Awaiting Reply</h4>
+                    <h5> {{climber.sender.skillLevel}} / {{climber.sender.gender}} </h5>
+                    <h5> {{climber.sender.zipCode}} </h5>
+                    <h5> {{climber.message}}</h5>
+                </div>
+                <div class="[ notif-info-card-buttons ]">
+                    <button class='climbOnBtn btn btn-success outline' ng-click='climbOn(climber)'>Confirm</button>
+                    <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber)'>Deny</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="[ col-md-12 ]">
-      <h3 class="text-center"> Outgoing </h3>
-      <hr>
-    </div>
-    <div class="[ col-md-3 ]" ng-repeat="climber in notifications">
-      <div class="[ notif-info-card ]">
-        <!-- we need to fix image -->
-        <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
-        <div class="[ notif-info-card-details ] animate">
-          <h1> Jon Snow </h1>
-          <h3> Pending Confirmation</h3>
-          <h4> Expert / Male </h4>
-          <h4> Los Angeles, CA </h4>
-          <h4> 90031 </h4>
-          <div class="[ ]">
-            <!-- Description -->
-            <button class='climbOnBtn btn btn-primary outline' ng-click='climbOn(climber)'> Cancel </button>
-          </div>
+    <!-- Outgoing Messages (People I want to climb with) -->
+    <div class="row">
+        <h3 class="text-center"> Outgoing </h3>
+        <hr>
+        <div class="[ col-md-3 ]" ng-repeat="climber in notifications.outgoing">
+            <div class="[ notif-info-card ]">
+                <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
+                <div class="[ notif-info-card-details ] animate">
+                    <h3> {{climber.sender.username}}</h3>
+                    <h4> Awaiting Reply</h4>
+                    <h5> {{climber.sender.skillLevel}} / {{climber.sender.gender}} </h5>
+                    <h5> {{climber.sender.zipCode}} </h5>
+                    <h5> {{climber.message}}</h5>
+                </div>
+                <div class="[ notif-info-card-buttons ]">
+                    <button class='climbOnBtn btn btn-success outline' ng-click='climbOn(climber)'>Confirm</button>
+                    <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber)'>Deny</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

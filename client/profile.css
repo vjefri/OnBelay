@@ -105,7 +105,7 @@
     display: block;
     width: 100%;
     border: 1px solid rgb(215, 215, 215);
-    border-radius: 25px;
+    border-radius: 15px;
     font-family: 'Lato', sans-serif;
     margin-bottom: 20px;
     overflow: hidden;
@@ -122,15 +122,22 @@
     margin-right: auto;
     margin-bottom: 20px;
   }
+  .notif-info-card-buttons {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
   .notif-info-card-details h4 {
     color: rgb(103, 115, 113);
   }
-  .notif-info-card-details h1 {
+  .notif-info-card-details h2 {
     color: rgb(62, 122, 162);
   }
   .notif-info-card-details h3 {
     color: rgb(99, 152, 152);
   }
+
   /****** Social Media *********/
   a.social-icon {
     text-decoration: none !important;
