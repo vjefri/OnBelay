@@ -1,53 +1,46 @@
 var User = require('../../models').User;
+var helpers = require('../apiHelpers.js');
 var url = require('url');
 
 module.exports.findActiveClimbers = function(req, res) {
-  var authUser = req.decoded.user;
-
+  var authUserId = req.decoded.id;
   User.find({
     climb: true
   }, function(err, climbers) {
     if (err) console.error(err);
-    var result = climbers.map(function(climber) {
-
-      //this code is what is causing nulls to enter the results...
-      //TODO: filter result array before sending response
-      if (climber.username === authUser) return;
-
-      return {
-        id: climber.id,
-        username: climber.username,
-        name:climber.name,
-        first: climber.name.first,
-        last: climber.name.last,
-        zipCode: climber.zipCode,
-        gender: climber.gender,
-        skillLevel: climber.skillLevel,
-        notification: climber.notifications
-      };
+    //map resulting climbers to array for use in json response
+    //buildUser only includes fields needed on the front end, excluding password etc
+    var resultArray = climbers.map(function(climber) {
+      return helpers.buildUser(climber);
     });
-    res.json(result);
+    //remove current user from Active Climbers
+    resultArray.filter(function(climber){
+      if (climber.id === authUserId){
+        return false;
+      }
+      return true;
+    });
+    res.json(resultArray);
   });
 };
 
 module.exports.getClimberById = function(req, res) {
   var id = url.parse(req.url, true).query.id;
+  if(id === 'undefined'){
+    res.sendStatus(404);
+    return;
+  }
   User.find({
     _id: id
-  }, function(err, climber) {
+  }, function(err, climberArray) {
     if (err) console.error(err);
-    climber = climber[0];
-    var result = {
-      id: climber.id,
-      username: climber.username,
-      name:climber.name,
-      first: climber.name.first,
-      last: climber.name.last,
-      zipCode: climber.zipCode,
-      gender: climber.gender,
-      skillLevel: climber.skillLevel,
-      notification: climber.notifications
-    };
-    res.json(result);
+    //if we don't get an array back or array items 404
+    if(!Array.isArray(climberArray) || climberArray.length < 1){
+      res.sendStatus(404);
+      return;
+    }
+    //grab the first entry (there should only be one) in the climber array and send it back
+    var climber = climberArray[0];
+    res.json(helpers.buildUser(climber));
   });
 };

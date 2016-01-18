@@ -47,15 +47,15 @@ angular.module('nova', [
 .factory('AppInfo',function($window, $rootScope, $interval, Climbers){
   var info = {};
   info.user = {};
-
-  if(info.user.id === undefined){
-    var tempId = $window.localStorage.getItem('onBelay.userId');
-    if(tempId !== null){
-      info.user.id = tempId;
-    }
-  }
   //update on interval
-  var doUpdate = function() {
+  info.doUpdate = function() {
+    //try to get user id from local storage if it isn't defined
+    if(info.user.id === undefined){
+      var tempId = $window.localStorage.getItem('onBelay.userId');
+      if(tempId !== null){
+        info.user.id = tempId;
+      }
+    }
     //update user
     if(info.user.id !== undefined){
       Climbers.getClimberById(info.user.id).then(function(userRes){
@@ -65,8 +65,8 @@ angular.module('nova', [
     }
   };
   //run the update process on load then on an interval
-  doUpdate();
-  var intRef = $interval(doUpdate, 3000);
+  info.doUpdate();
+  var intRef = $interval(info.doUpdate, 3000);
 
   return info;
 })
