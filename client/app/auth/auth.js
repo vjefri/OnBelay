@@ -12,8 +12,9 @@ angular.module('nova.auth', [])
     Auth.signin($scope.user)
       .then(function (data) {
         $window.localStorage.setItem('onBelay.token', data.token);
-        $window.localStorage.setItem('onBelay.userId', data.id);
-        AppInfo.user.id = data.id;
+        $window.localStorage.setItem('onBelay.userId', data.user.id);
+        angular.extend(AppInfo.user, data.user);
+        AppInfo.doUpdate();
         $rootScope.hasAuth = true;
         $state.go('main');
       })
@@ -28,8 +29,9 @@ angular.module('nova.auth', [])
         if (data) {
           console.log('SIGNUP DATA', data);
           $window.localStorage.setItem('onBelay.token', data.token);
-          $window.localStorage.setItem('onBelay.userId', data.id);
-          AppInfo.user.id = data.id;
+          $window.localStorage.setItem('onBelay.userId', data.user.id);
+          angular.extend(AppInfo.user, data.user);
+          AppInfo.doUpdate();
           $rootScope.hasAuth = true;
           $state.go('update');
 	} else {

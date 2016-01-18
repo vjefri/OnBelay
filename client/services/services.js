@@ -176,10 +176,10 @@ angular.module('nova.services', [])
     });
 
   };
-  
+
   updateNotfications();
   $interval(updateNotfications, 5000);
-  
+
   return {
     sendNotification: sendNotification,
     checkNotifications: checkNotifications,
@@ -188,5 +188,5 @@ angular.module('nova.services', [])
     replyToClimber: replyToClimber,
     currentNotifications: currentNotifications,
   };
-  
+
 });
