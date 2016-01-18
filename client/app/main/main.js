@@ -1,6 +1,6 @@
-angular.module('nova.main', [])
+angular.module('nova.main', ['ngDialog'])
 
-.controller('MainController', function($scope, $interval, $window, Climbers, Notify, Auth, AppInfo) {
+.controller('MainController', function(ngDialog, $scope, $interval, $window, Climbers, Notify, Auth, AppInfo) {
   $scope.activeClimbers = {};
   $scope.status = false;
   $scope.invitationMessage='';
@@ -47,7 +47,8 @@ angular.module('nova.main', [])
   };
 
   $scope.climbOn = function(climber) {
-    
+    //open Dialog box -- experimental by Vincent. Pls feel free to remove. 
+    ngDialog.open({template: '<p>my template</p>', plain: true});
     $scope.climbOnClicked[climber.id] = true;
   };
 

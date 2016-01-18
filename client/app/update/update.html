@@ -1,13 +1,20 @@
 <div id='update'>
   <h1>update</h1>
-  <form name="update-form" ng-submit='update()'>
+  <form name="updateForm" ng-submit='update()'>
    <div class="form-group">
+   
      <label for="name">Firstname</label>
-     <input type='text' id="firstname" class="form-control" ng-model='user.name.first' placeholder="{{user.name.first}}"><br>
+     
+     <input type='text' id="firstname" class="form-control" ng-model='user.name.first' placeholder="{{user.name.first}}" name="firstname" required><br>
+     <p ng-show="updateForm.firstname.$invalid && !updateForm.firstname.$pristine" class="help-block" style="color:red">Your firstname is required.</p>
+     
      <label for="name">Lastname</label>
-     <input type='text' id="lastname" class="form-control" ng-model='user.name.last' placeholder="{{user.name.last}}"><br>
+     <input type='text' id="lastname" class="form-control" ng-model='user.name.last' placeholder="{{user.name.last}}" name="lastname" required><br>
+     <p ng-show="updateForm.lastname.$invalid && !updateForm.lastname.$pristine" class="help-block" style="color:red">Your lastname is required.</p>
+     
      <label for="zip-code">ZIP</label>
-     <input type="text" id="zipCode" class="form-control" ng-model='user.zipCode' placeholder="{{user.zipCode}}"> <br>
+     <input type="text" id="zipCode" class="form-control" ng-model='user.zipCode' placeholder="{{user.zipCode}}" name="zipcode" required> <br>
+     <p ng-show="updateForm.zipcode.$invalid && !updateForm.zipcode.$pristine" class="help-block" style="color:red">Your Zipcode is required.</p>
 
       <label class="radio-inline">
         <input type="radio" ng-model="user.gender" value="male"> Male
@@ -25,7 +32,7 @@
       <option value="Intermediate">Intermediate</option>
       <option value="Expert">Expert</option>
     </select><br>
-     <button type="submit" class="btn btn-default">update</button>
+     <button type="submit" class="btn btn-default" ng-disabled="updateForm.$invalid">update</button>
    </div>
   </form>
 </div>
