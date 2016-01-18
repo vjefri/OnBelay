@@ -47,7 +47,7 @@ angular.module('nova.main', ['ngDialog'])
   };
 
   $scope.climbOn = function(climber) {
-    //open Dialog box
+    //open Dialog box -- experimental by Vincent. Pls feel free to remove. 
     ngDialog.open({template: '<p>my template</p>', plain: true});
     $scope.climbOnClicked[climber.id] = true;
   };
