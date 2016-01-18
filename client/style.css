@@ -166,3 +166,12 @@ nav a:last-child {
     color: #e74c3c;
     box-shadow: none;
 }
+.btn-success.outline {
+    border: 2px solid #00b300;
+    color: #00b300;
+}
+
+.btn-danger.outline {
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
+}
