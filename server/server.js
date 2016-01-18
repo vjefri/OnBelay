@@ -18,15 +18,15 @@ app.use(express.static(__dirname + '/../client'));
 
 //if it's not production
 if (process.env.NODE_ENV !== 'production') {
-  //app.use(require('morgan')('dev'));
+  // app.use(require('morgan')('dev'));
 }
 
 /* seeds the db with fake users for development */
 if (process.env.NODE_ENV !== 'production') {
   //connect to mongo database
   mongoose.connect('mongodb://localhost/onbelay');
-  //initialize demo users
-//  require('../fakeUsers')();
+  // initialize demo users
+ require('../fakeUsers')();
 } else {
   //for heroku, connecting to the mongo that heroku that provides you
   mongoose.connect(process.env.MONGOLAB_URI);

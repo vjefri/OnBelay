@@ -4,7 +4,8 @@
       <h3 class="text-center"> Incoming </h3>
       <hr>
     </div>
-    <div class="[ col-md-3 ]" ng-repeat="climber in notifications">
+    <div class="[ col-md-3 ]" ng-repeat="climber in notifications.incoming">
+
       <div class="[ notif-info-card ]">
         <!-- we need to fix image -->
         <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
@@ -27,12 +28,12 @@
       <h3 class="text-center"> Outgoing </h3>
       <hr>
     </div>
-    <div class="[ col-md-3 ]" ng-repeat="climber in notifications">
+    <div class="[ col-md-3 ]" ng-repeat="climber in notifications.outgoing">
       <div class="[ notif-info-card ]">
         <!-- we need to fix image -->
         <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
         <div class="[ notif-info-card-details ] animate">
-          <h1> Jon Snow </h1>
+          <h1> {{climber.recipient.username}} </h1>
           <h3> Pending Confirmation</h3>
           <h4> Expert / Male </h4>
           <h4> Los Angeles, CA </h4>

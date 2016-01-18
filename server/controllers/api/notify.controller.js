@@ -151,6 +151,7 @@ function getNotifications(req, res) {
         //   return !!item;
         // });
 
+
         // console.log("JSON sent is ", {incoming : incomingNotif, outgoing : outgoingNotif});
 
         //send back the array in a JSON to client
