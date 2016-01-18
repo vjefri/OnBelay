@@ -48,14 +48,16 @@ angular.module('nova.main', ['ngDialog'])
 
   $scope.climbOn = function(climber) {
     //open Dialog box -- experimental by Vincent. Pls feel free to remove. 
-    ngDialog.open({template: '<p>my template</p>', plain: true});
+    ngDialog.open({template:'app/main/message.html', controller:'MainController'});
     $scope.climbOnClicked[climber.id] = true;
   };
 
   $scope.sendInvitationToClimb = function(climber, message) {
+    console.log("Route still works");
+    console.log("MESSAGE", message);
+    console.log("CLIMBER", climber);
     Notify.sendNotification(climber, message)
       .then(function(res) {
-        $scope.climbOnClicked=false;
         $scope.invitationMessage='';
       })
       .catch(function(err) {
