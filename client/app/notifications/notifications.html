@@ -28,15 +28,14 @@
             <div class="[ notif-info-card ]">
                 <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
                 <div class="[ notif-info-card-details ] animate">
-                    <h3> {{climber.sender.username}}</h3>
-                    <h4> Awaiting Reply</h4>
-                    <h5> {{climber.sender.skillLevel}} / {{climber.sender.gender}} </h5>
-                    <h5> {{climber.sender.zipCode}} </h5>
+                    <h3> {{climber.recipient.username}}</h3>
+                    <h4> Waiting for Confirmation</h4>
+                    <h5> {{climber.recipient.skillLevel}} / {{climber.recipient.gender}} </h5>
+                    <h5> {{climber.recepient.zipCode}} </h5>
                     <h5> {{climber.message}}</h5>
                 </div>
                 <div class="[ notif-info-card-buttons ]">
-                    <button class='climbOnBtn btn btn-success outline' ng-click='climbOn(climber)'>Confirm</button>
-                    <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber)'>Deny</button>
+                  <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber)'>Cancel</button>
                 </div>
             </div>
         </div>
