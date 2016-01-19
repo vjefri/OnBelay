@@ -8,40 +8,20 @@
         </div>
     </section>
     <div class="row">
-      <div class="[col-md-offset-1 col-md-4 ] climbers" ng-repeat="climber in activeClimbers" ng-if="climber">
-        <div class="[ info-card ]">
+      <div class="col-md-3 climbers" ng-repeat="climber in activeClimbers" ng-if="climber">
+        <div class="info-card">
           <img style="width: 100%" src="assets/img/profile-generic.jpg" />
-          <div class="[ info-card-details ] animate">
-            <div class="[ info-card-header ]">
+          <div class="info-card-details animate">
+            <div class="info-card-header">
               <h1> {{climber.first}} {{climber.last}} </h1>
               <h3> {{climber.skillLevel}} / {{climber.gender}}</h3>
             </div>
-            <div class="[ info-card-detail ]">
+            <div class="info-card-detail">
               <!-- Description -->
               <div class = 'animate-hide' ng-if="!climbOnClicked[climber.id]">
                 <p>Looking to climb with some fellow {{climber.skillLevel}} climbers! </p>
                 <button class="climbOnBtn btn btn-primary outline" ng-click="climbOn(climber)">Climb On</button>
               </div>
-
- <!--               <div class='animate-hide' id="message" ng-if="climbOnClicked[climber.id]">
-                <p> Send {{climber.username}} an invitation to climb. </p>
-                  <form ng-submit="sendInvitationToClimb(climber.username, invitationMessage)">
-                    <div class="form-group">
-                      <input type="text" ng-model="invitationMessage" /> 
-                    </div>
-                    <div class="form-group">
-                      <button type="submit" value="submit"class="btn btn-default"> Send </button>
-                    </div>
-                  </form>
-                </div> -->
-            
-              <!-- <div class="social">
-                <a href="https://www.facebook.com/rem.mcintosh" class="[ social-icon facebook ] animate"><span class="fa fa-facebook"></span></a>
-                <a href="https://twitter.com/Mouse0270" class="[ social-icon twitter ] animate"><span class="fa fa-twitter"></span></a>
-                <a href="https://github.com/mouse0270" class="[ social-icon github ] animate"><span class="fa fa-github-alt"></span></a>
-                <a href="https://plus.google.com/u/0/115077481218689845626/posts" class="[ social-icon google-plus ] animate"><span class="fa fa-google-plus"></span></a>
-                <a href="www.linkedin.com/in/remcintosh/" class="[ social-icon linkedin ] animate"><span class="fa fa-linkedin"></span></a>
-              </div> -->
            </div>
          </div>
        </div>
