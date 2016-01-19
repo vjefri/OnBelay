@@ -6,7 +6,7 @@ function sendNotification (req, res) {
   var targetUser = req.body.targetUser;
   var notifcationText = req.body.message;
   var newNotification;
-  
+
   //find the username
   User.findOne({ username: authUser }, function(err, sender) {
     if (err) console.error(err);
@@ -107,7 +107,7 @@ function getNotifications(req, res) {
             };
           }
         }).filter(function(item) {
-          return !!item;
+          return Boolean(item);
         });
 
         //filter all the outgoing messages with following return format
@@ -134,7 +134,7 @@ function getNotifications(req, res) {
             };
           }
         }).filter(function(item) {
-          return !!item;
+          return Boolean(item);
         });
 
 
@@ -155,7 +155,7 @@ function getNotifications(req, res) {
         //   }
         //   //filter all the items that are empty
         // }).filter(function(item) {
-        //   return !!item;
+        //   return Boolean(item);
         // });
 
 
