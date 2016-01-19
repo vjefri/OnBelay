@@ -103,16 +103,12 @@ function getNotifications(req, res) {
               isRead: notification.isRead,
               isResolved: notification.isResolved,
               isAccepted: notification.isAccepted,
-	            isResolved: notification.isResolved,
+              isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
         }).filter(function(notification) {
-<<<<<<< 79f82520333a72a4e72e5f1308dc10043b78b11f
-          return !!notification 
-=======
-          return !!notification
->>>>>>> Filtering messages once resolved
+          return !!notification;
         }).filter(function(notification){
           return !notification.isResolved;
         });
@@ -136,17 +132,13 @@ function getNotifications(req, res) {
               message: notification.message,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
-	            isConfirmed: notification.isConfirmed,
-	            isResolved: notification.isResolved,
+              isConfirmed: notification.isConfirmed,
+              isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
         }).filter(function(item) {
-<<<<<<< 79f82520333a72a4e72e5f1308dc10043b78b11f
-          return !!item && 
-=======
           return !!item
->>>>>>> Filtering messages once resolved
         }).filter(function(notification){
           return !notification.isResolved;
         });
