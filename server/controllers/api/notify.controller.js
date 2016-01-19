@@ -108,10 +108,15 @@ function getNotifications(req, res) {
             };
           }
         }).filter(function(notification) {
+<<<<<<< 79f82520333a72a4e72e5f1308dc10043b78b11f
           return !!notification 
+=======
+          return !!notification
+>>>>>>> Filtering messages once resolved
         }).filter(function(notification){
           return !notification.isResolved;
         });
+
 
         //filter all the outgoing messages with following return format
         var outgoingNotif = notifications.map(function(notification) {
@@ -137,7 +142,11 @@ function getNotifications(req, res) {
             };
           }
         }).filter(function(item) {
+<<<<<<< 79f82520333a72a4e72e5f1308dc10043b78b11f
           return !!item && 
+=======
+          return !!item
+>>>>>>> Filtering messages once resolved
         }).filter(function(notification){
           return !notification.isResolved;
         });
