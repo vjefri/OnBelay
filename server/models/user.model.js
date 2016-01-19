@@ -12,7 +12,6 @@ var userSchema = mongoose.Schema({
   skillLevel: String,
   gender: String,
   climb: { type: Boolean, default: false },
-  climbingWith: Object,
   notifications: {
     incoming: [{ type: ObjectId, ref: 'Notification' }],
     outgoing: [{ type: ObjectId, ref: 'Notification' }]

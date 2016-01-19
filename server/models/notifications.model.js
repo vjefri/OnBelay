@@ -41,8 +41,8 @@ notificationSchema.methods.markAccepted = function(reply) {
   this.isAccepted = reply;
 };
 
-notificationSchema.methods.markConfirmed = function(confirm) {
-  this.isConfirmed = confirm;
+notificationSchema.methods.markConfirmed = function() {
+  this.isConfirmed = true;
 };
 
 notificationSchema.methods.markRead = function() {

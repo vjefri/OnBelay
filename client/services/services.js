@@ -152,21 +152,19 @@ angular.module('nova.services', [])
       method: 'PUT',
       url: '/api/auth/user/notifications/reply',
       data: {
-        notificationId: climber.id,
-        reply: reply
+        notificationId: climber.id      
       }
     }).then(function(res) {
       return res.data;
     });
   };
 
-    var confirmClimber = function(climber, confirm) {
+    var confirmClimber = function(climber) {
     return $http({
       method: 'PUT',
       url: '/api/auth/user/notifications/confirm',
       data: {
-        notificationId: climber.id,
-        confirm: confirm
+        notificationId: climber
       }
     }).then(function(res) {
       return res.data;
@@ -197,6 +195,7 @@ angular.module('nova.services', [])
     markAllNotificationsRead: markAllNotificationsRead,
     replyToClimber: replyToClimber,
     currentNotifications: currentNotifications,
+    confirmClimber: confirmClimber
   };
 
 });

@@ -218,13 +218,12 @@ function replyNotification(req, res) {
 }
 
 function confirmNotification(req, res) {
-  var notificationId = req.body.notificationId;
-  var confirm = req.body.confirm;
+  var notificationId = req.body.notificationId._id;
 
   Notification.findById(notificationId, function(err, notification) {
     if (err) console.error(err);
-
-    notification.markConfirmed(confirm);
+    console.log('notification', notification);
+    notification.markConfirmed(true);
     notification.markResolved();
     notification.save(function(err, notification) {
       res.json({ success: true });
