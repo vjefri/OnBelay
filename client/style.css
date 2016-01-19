@@ -180,3 +180,7 @@ nav a:last-child {
   max-width: 80px;
   max-height: 80px;
 }
+
+.climbOnBtn{
+  margin: auto 0;
+}
