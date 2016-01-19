@@ -57,13 +57,13 @@ angular.module('nova.main', ['ngDialog'])
   
   /**
    *    Opens the Dialog to send Climbers a message and request to Climb
-   */
-  $scope.openSendDialog = function() {
-    ngDialog.open({template:'app/main/message.html', controller:'MainController'});
-  };
+  //  */
+  // $scope.openSendDialog = function() {
+  //   ngDialog.open({template:'app/main/message.html', controller:'MainController'});
+  // };
 
-  $scope.sendInvitationToClimb = function(message) {
-    console.log($scope.targetClimber);
+  $scope.sendInvitationToClimb = function(climber, message) {
+    console.log(message);
     Notify.sendNotification($scope.targetClimber.username, message)
       .then(function(res) {
         $scope.invitationMessage='';
@@ -71,6 +71,7 @@ angular.module('nova.main', ['ngDialog'])
       .catch(function(err) {
         console.error(err);
       });
+    ngDialog.closeAll();
   };
 
   //get the initial status of the current user
