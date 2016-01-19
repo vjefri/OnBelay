@@ -99,6 +99,7 @@ function getNotifications(req, res) {
               message: notification.message,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
+	      isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
@@ -123,6 +124,8 @@ function getNotifications(req, res) {
               },
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
+	      isConfirmed: notification.isConfirmed,
+	      isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
