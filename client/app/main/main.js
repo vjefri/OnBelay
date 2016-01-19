@@ -6,6 +6,7 @@ angular.module('nova.main', ['ngDialog'])
   $scope.climbOnClicked = {};
   $scope.readStatus = {};
 
+  console.log("user", AppInfo.user);
   angular.extend($scope, AppInfo);
   $scope.getActiveClimbers = function() {
     Climbers.getClimbers()
@@ -67,15 +68,15 @@ angular.module('nova.main', ['ngDialog'])
     // var confirmed = _.filter(AppInfo.user.notifications.incoming, {
     //   'isConfirmed': true
     // });
-    var resolved = _.filter(AppInfo.user.notifications.incoming, {
-      'isResolved': true
-    });
-    var read = _.reject(AppInfo.user.notifications.incoming, {
+    var read = _.filter(AppInfo.user.notifications.outgoing, {
       'read': true
     });
-    $scope.readStatus = read;
-    console.log('read', read);
-    console.log('resolved', resolved);
+
+    var resolved = _.reject(AppInfo.user.notifications.outgoing, {
+      'isResolved': true
+    });
+
+    $scope.readStatus = resolved;
 
     //update active climbers
     $scope.getActiveClimbers();
