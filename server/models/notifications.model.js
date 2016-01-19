@@ -12,6 +12,9 @@ var notificationSchema = mongoose.Schema({
   recipient: { 
     id: { type: ObjectId, ref: 'User' },
     username: String,
+    zipCode: Number,
+    skillLevel: String,
+    gender: String,
   },
   message: String,
   isRead: { type: Boolean, default: false },
