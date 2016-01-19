@@ -4,18 +4,13 @@
         <h3 class="text-center"> Incoming </h3>
         <hr>
         <div class="[ col-md-3 ]" ng-repeat="climber in notifications.incoming">
-            <div class="[ notif-info-card ]">
+            <div class="[ notif-info-card ]" ng-click="moreInformation(climber)">
                 <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
                 <div class="[ notif-info-card-details ] animate">
                     <h3> {{climber.sender.username}}</h3>
                     <h4> Awaiting Reply</h4>
                     <h5> {{climber.sender.skillLevel}} / {{climber.sender.gender}} </h5>
                     <h5> {{climber.sender.zipCode}} </h5>
-                    <h5> {{climber.message}}</h5>
-                </div>
-                <div class="[ notif-info-card-buttons ]">
-                    <button class='climbOnBtn btn btn-success outline' ng-click='climbOn(climber)'>Confirm</button>
-                    <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber)'>Deny</button>
                 </div>
             </div>
         </div>

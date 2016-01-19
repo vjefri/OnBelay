@@ -1,6 +1,6 @@
-angular.module('nova.notifications', [])
+angular.module('nova.notifications', ['ngDialog'])
 
-  .controller('NotificationCtrl', function($scope, $interval, Notify, Climbers) {
+  .controller('NotificationCtrl', function(ngDialog, $scope, $interval, Notify, Climbers) {
     $scope.notifications = {};
     angular.extend($scope.notifications, Notify.currentNotifications);
     $scope.getAllNotifications = function() {
@@ -23,7 +23,30 @@ angular.module('nova.notifications', [])
         });
     }();
 
-    $scope.climbOn = function(climber) {
+    $scope.moreInformation = function(climber) {
+      $scope.targetClimber = climber;
+      ngDialog.open({template:'app/notifications/notifmessage.html', scope: $scope});
+    };
+
+    $scope.acceptClimb = function(climber) {
+      Notify.replyToClimber(climber)
+        .then(function(res) {
+          console.log(res);
+          // Turn flags off for both users
+          Climbers.updateStatus(climber)
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(err) {
+              console.error(err);
+            });
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+    };
+
+    $scope.denyClimb = function(climber) {
       Notify.replyToClimber(climber)
         .then(function(res) {
           console.log(res);
