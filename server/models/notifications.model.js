@@ -17,6 +17,7 @@ var notificationSchema = mongoose.Schema({
   isRead: { type: Boolean, default: false },
   isAccepted: { type: Boolean, default: false },
   isResolved: { type: Boolean, default: false },
+  isConfirmed: {type: Boolean, default: false},
   createdAt: Date,
   updatedAt: Date
 });
@@ -36,6 +37,10 @@ notificationSchema.methods.markResolved = function() {
 
 notificationSchema.methods.markAccepted = function(reply) {
   this.isAccepted = reply;
+};
+
+notificationSchema.methods.markConfirmed = function(confirm) {
+  this.isConfirmed = confirm;
 };
 
 notificationSchema.methods.markRead = function() {
