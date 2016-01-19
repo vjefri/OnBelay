@@ -4,14 +4,14 @@ var User = require('../../models').User,
 function sendNotification (req, res) {
   var authUser = req.decoded.user;
   var targetUser = req.body.targetUser;
-  var notifcationText = req.body.message;
+  var notificationText = req.body.message;
   var newNotification;
 
 
   //find the username
   User.findOne({ username: authUser }, function(err, sender) {
     if (err) console.error(err);
-
+    console.log(notificationText);
     if (!sender) {
       res.json({ success: false, reason: 'User not found' });
     } else {
@@ -20,7 +20,7 @@ function sendNotification (req, res) {
         newNotification = new Notification({
           sender: {
             // id: sender.id._id,
-            username: sender.username,
+            username: sender.firstname,
             zipCode: sender.zipCode,
             skillLevel: sender.skillLevel,
             gender: sender.gender
@@ -32,7 +32,7 @@ function sendNotification (req, res) {
             skillLevel: target.skillLevel,
             gender: target.gender
           },
-          message: notifcationText
+          message: notificationText
         });
 
         console.log('NOTIFCAITON', newNotification);
@@ -92,6 +92,7 @@ function getNotifications(req, res) {
         //filter all the incoming messages with following return format
         var incomingNotif = notifications.map(function(notification) {
           if ( notification.sender.username !== authUser  && !notification.isResolved) {
+            console.log(notification);
             return {
               id: notification._id,
               sender: {

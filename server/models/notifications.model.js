@@ -7,7 +7,7 @@ var notificationSchema = mongoose.Schema({
     username: String,
     zipCode: Number,
     skillLevel: String,
-    gender: String, 
+    gender: String
   },
   recipient: { 
     id: { type: ObjectId, ref: 'User' },
