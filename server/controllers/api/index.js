@@ -24,6 +24,7 @@ apiRouter.get('/auth/user/notifications/incoming', notify.getNotifications);
 apiRouter.post('/auth/user/notifications/create', notify.sendNotification);
 apiRouter.put('/auth/user/notifications/read', notify.readNotifications);
 apiRouter.put('/auth/user/notifications/reply', notify.replyNotification);
+apiRouter.put('/auth/user/notifications/confirm', notify.confirmNotification);
 apiRouter.get('/auth/user/notifications/unread', notify.checkUnread);
 
 module.exports = apiRouter;

@@ -199,6 +199,20 @@ function replyNotification(req, res) {
     if (err) console.error(err);
 
     notification.markAccepted(reply);
+    notification.save(function(err, notification) {
+      res.json({ success: true });
+    });
+  });
+}
+
+function confirmNotification(req, res) {
+  var notificationId = req.body.notificationId;
+  var confirm = req.body.confirm;
+
+  Notification.findById(notificationId, function(err, notification) {
+    if (err) console.error(err);
+
+    notification.markConfirmed(confirm);
     notification.markResolved();
     notification.save(function(err, notification) {
       res.json({ success: true });
@@ -246,5 +260,6 @@ module.exports = {
   getNotifications: getNotifications,
   readNotifications: readNotifications,
   replyNotification: replyNotification,
+  confirmNotification: confirmNotification,
   checkUnread: checkUnread
 };
