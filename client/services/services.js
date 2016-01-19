@@ -113,6 +113,7 @@ angular.module('nova.services', [])
 .factory('Notify', function($http, $interval, AppInfo) {
 
   var sendNotification = function(climber,message) {
+    console.log(message);
     return $http({
       method: 'POST',
       url: '/api/auth/user/notifications/create',
@@ -131,6 +132,7 @@ angular.module('nova.services', [])
       method: 'GET',
       url: '/api/auth/user/notifications/incoming'
     }).then(function(res) {
+      console.log(res.data);
       return res.data;
     });
   };

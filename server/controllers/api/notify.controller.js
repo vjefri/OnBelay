@@ -7,6 +7,7 @@ function sendNotification (req, res) {
   var notifcationText = req.body.message;
   var newNotification;
 
+
   //find the username
   User.findOne({ username: authUser }, function(err, sender) {
     if (err) console.error(err);
@@ -34,6 +35,7 @@ function sendNotification (req, res) {
           message: notifcationText
         });
 
+        console.log('NOTIFCAITON', newNotification);
 
         newNotification.save(function(err, notification) {
           if (err) console.error(err);
@@ -109,7 +111,8 @@ function getNotifications(req, res) {
           }
         }).filter(function(notification) {
           return !!notification;
-        }).filter(function(notification){
+        })
+        .filter(function(notification){
           return !notification.isResolved;
         });
 

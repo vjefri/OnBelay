@@ -175,3 +175,12 @@ nav a:last-child {
     border: 2px solid #e74c3c;
     color: #e74c3c;
 }
+
+.message-input{
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.climbOnBtn{
+  margin: auto 0;
+}
