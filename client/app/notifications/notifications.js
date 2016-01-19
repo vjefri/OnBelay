@@ -2,7 +2,6 @@ angular.module('nova.notifications', ['ngDialog'])
 
   .controller('NotificationCtrl', function(ngDialog, $scope, $interval, Notify, Climbers) {
     $scope.notifications = {};
-    angular.extend($scope.notifications, Notify.currentNotifications);
     $scope.getAllNotifications = function() {
       Notify.fetchAllNotifications()
         .then(function(res) {
@@ -11,7 +10,7 @@ angular.module('nova.notifications', ['ngDialog'])
         .catch(function(err) {
           console.error(err);
         });
-    }();
+    };
 
     $scope.readAllNotifications = function() {
       Notify.markAllNotificationsRead()
@@ -63,4 +62,13 @@ angular.module('nova.notifications', ['ngDialog'])
           console.error(err);
         });
     };
+    
+    $scope.checkNotif = function() {
+      console.log("Inside of checkNotif");
+      console.log("$scope.notification is ", $scope.notifications);
+    };
+    
+    //get all notifications in interval
+    $interval($scope.getAllNotifications, 1000);
+    
   });

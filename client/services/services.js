@@ -165,7 +165,7 @@ angular.module('nova.services', [])
     });
   };
 
-  var currentNotifications = [];
+  var currentNotifications = {};
 
   var updateNotfications = function(){
     return $http({
@@ -173,12 +173,14 @@ angular.module('nova.services', [])
       url: '/api/auth/user/notifications/incoming'
     }).then(function(res) {
       currentNotifications = res.data;
+      console.log("Current Notifications is", currentNotifications);
     });
 
   };
-
-  updateNotfications();
-  $interval(updateNotfications, 5000);
+  
+  //could not get this to working within notification Controller. 
+  // updateNotfications();
+  // $interval(updateNotfications, 1000);
 
   return {
     sendNotification: sendNotification,
