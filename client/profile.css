@@ -10,6 +10,9 @@
     -ms-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
   }
+  .divider {
+    color: rgb(82, 81, 81) ;
+  }
   .info-card {
     width: 100%;
     border: 1px solid rgb(215, 215, 215);
@@ -128,8 +131,11 @@
     margin-right: auto;
     margin-bottom: 20px;
   }
-  .notif-info-card-details h4 {
+  .notif-info-card-details h5 {
     color: rgb(103, 115, 113);
+  }
+  .notif-info-card-details h4 {
+    color: rgb(52, 169, 149);
   }
   .notif-info-card-details h2 {
     color: rgb(62, 122, 162);
