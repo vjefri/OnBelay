@@ -58,7 +58,8 @@
     bottom: 100%;
     padding: 10px 5px;
   }
-  .info-card:hover .info-card-details {
+  .info-card:hover .info-card-details,
+  .info-card.active {
     bottom: 0px;
     overflow: auto;
     padding-bottom: 25px;

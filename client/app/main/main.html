@@ -1,30 +1,29 @@
-<!-- http://bootsnipp.com/snippets/3qexV -->
-
 <div class="container">
-    <section class="switch">
-        <div class="slideThree">
-            <input type="checkbox" value="None" id="slideThree" name="check" checked ng-checked="status" ng-click="updateStatus()" />
-            <label for="slideThree"></label>
-        </div>
-    </section>
-    <div class="row">
-      <div class="col-md-3 climbers" ng-repeat="climber in activeClimbers" ng-if="climber">
-        <div class="info-card">
-          <img style="width: 100%" src="assets/img/profile-generic.jpg" />
-          <div class="info-card-details animate">
-            <div class="info-card-header">
-              <h1> {{climber.first}} {{climber.last}} </h1>
-              <h3> {{climber.skillLevel}} / {{climber.gender}}</h3>
+  <section class="switch">
+    <div class="slideThree">
+      <input type="checkbox" value="None" id="slideThree" name="check" checked ng-checked="status" ng-click="updateStatus()" />
+      <label for="slideThree"></label>
+    </div>
+  </section>
+  <div class="row">
+    <div class="col-md-3 climbers" ng-repeat="climber in activeClimbers" ng-if="climber">
+      <div class="info-card">
+      <!-- Image Needs Implementation -->
+        <img style="width: 100%" src="assets/img/profile-generic.jpg" />
+        <div class="info-card-details animate">
+          <div class="info-card-header">
+            <h1> {{climber.first}} {{climber.last}} </h1>
+            <h3> {{climber.skillLevel}} / {{climber.gender}}</h3>
+          </div>
+          <div class="info-card-detail ]">
+            <!-- Description -->
+            <div class='animate-hide' ng-if="!climbOnClicked[climber.id]">
+              <p>Looking to climb with some fellow {{climber.skillLevel}} climbers! </p>
+              <button class="climbOnBtn btn btn-primary outline" ng-click="climbOn(climber)">Climb On</button>
             </div>
-            <div class="info-card-detail">
-              <!-- Description -->
-              <div class = 'animate-hide' ng-if="!climbOnClicked[climber.id]">
-                <p>Looking to climb with some fellow {{climber.skillLevel}} climbers! </p>
-                <button class="climbOnBtn btn btn-primary outline" ng-click="climbOn(climber)">Climb On</button>
-              </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -50,17 +50,8 @@ angular.module('nova.main', ['ngDialog'])
     //open Dialog box -- experimental by Vincent. Pls feel free to remove. 
     $scope.targetClimber = climber; 
     // $scope.$apply();
-    // console.log()
-    ngDialog.open({template:'app/main/message.html', scope: $scope});
     $scope.climbOnClicked[climber.id] = true;
   };
-  
-  /**
-   *    Opens the Dialog to send Climbers a message and request to Climb
-  //  */
-  // $scope.openSendDialog = function() {
-  //   ngDialog.open({template:'app/main/message.html', controller:'MainController'});
-  // };
 
   $scope.sendInvitationToClimb = function(climber, message) {
     console.log(message);
