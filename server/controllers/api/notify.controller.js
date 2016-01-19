@@ -202,6 +202,11 @@ function replyNotification(req, res) {
     if (err) console.error(err);
 
     notification.markAccepted(reply);
+
+    if(!reply){
+      notification.markResolved();
+    }
+    console.log('NOTIFICATION', notification);
     notification.save(function(err, notification) {
       res.json({ success: true });
     });
