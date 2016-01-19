@@ -54,6 +54,13 @@ angular.module('nova.main', ['ngDialog'])
     ngDialog.open({template:'app/main/message.html', scope: $scope});
     $scope.climbOnClicked[climber.id] = true;
   };
+  
+  /**
+   *    Opens the Dialog to send Climbers a message and request to Climb
+   */
+  $scope.openSendDialog = function() {
+    ngDialog.open({template:'app/main/message.html', controller:'MainController'});
+  };
 
   $scope.sendInvitationToClimb = function(message) {
     console.log($scope.targetClimber);
