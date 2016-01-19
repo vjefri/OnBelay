@@ -11,6 +11,6 @@ module.exports.buildUser = function(userModel){
   userObj.gender = userModel.gender;
   userObj.skillLevel = userModel.skillLevel;
   userObj.climb = userModel.climb;
-  userObj.notification = userModel.notifications;
+  userObj.notifications = userModel.notifications;
   return userObj;
 };
