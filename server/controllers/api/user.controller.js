@@ -30,17 +30,17 @@ module.exports.getClimberById = function(req, res) {
     res.sendStatus(404);
     return;
   }
-  User.find({
-    _id: id
-  }, function(err, climberArray) {
-    if (err) console.error(err);
-    //if we don't get an array back or array items 404
-    if(!Array.isArray(climberArray) || climberArray.length < 1){
-      res.sendStatus(404);
-      return;
-    }
-    //grab the first entry (there should only be one) in the climber array and send it back
-    var climber = climberArray[0];
-    res.json(helpers.buildUser(climber));
-  });
+  User.findOne({_id: id })
+      //populate swaps out the notification _id with the complete notifications object
+      .populate('notifications.incoming')
+      .populate('notifications.outgoing')
+      .exec(function(err, climber) {
+        if (err) console.error(err);
+        //if we don't get a user back
+        if(!climber){
+          res.sendStatus(404);
+          return;
+        }
+        res.json(helpers.buildUser(climber));
+      });
 };

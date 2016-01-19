@@ -105,7 +105,6 @@ function getNotifications(req, res) {
               isRead: notification.isRead,
               isResolved: notification.isResolved,
               isAccepted: notification.isAccepted,
-              isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
@@ -141,7 +140,7 @@ function getNotifications(req, res) {
             };
           }
         }).filter(function(item) {
-          return !!item
+          return !!item;
         }).filter(function(notification){
           return !notification.isResolved;
         });

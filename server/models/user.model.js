@@ -1,6 +1,7 @@
-var mongoose = require('mongoose'),
-    bcrypt = require('bcrypt-nodejs'),
-    ObjectId = mongoose.Schema.Types.ObjectId;
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
+//makes it so we can populate the item later
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var userSchema = mongoose.Schema({
   username: String,

@@ -51,10 +51,7 @@ angular.module('nova', [
   var info = {};
   info.user = {};
   info.data = {};
-  info.data.hasAuth = false;
   info.data.unread = 0;
-
-
   info.data.hasAuth = Boolean($window.localStorage.getItem('onBelay.token'));
 
   //update on interval
@@ -70,7 +67,7 @@ angular.module('nova', [
     if(info.user.id !== undefined){
       Climbers.getClimberById(info.user.id).then(function(userRes){
         angular.extend(info.user, userRes);
-        info.data.unread = info.user.notification.incoming.length + info.user.notification.outgoing.length;
+        info.data.unread = info.user.notifications.incoming.length + info.user.notifications.outgoing.length;
       });
     }
   };

@@ -51,10 +51,10 @@
   }
   .info-card .info-card-details::-webkit-scrollbar-thumb:hover {
     background: rgb(130, 130, 130);
-  }           
+  }
 
   .info-card .info-card-details .info-card-header {
-    height: auto;   
+    height: auto;
     bottom: 100%;
     padding: 10px 5px;
   }
@@ -69,7 +69,7 @@
     padding-top: 45px;
     padding-bottom: 25px;
   }
-  .info-card .info-card-details .info-card-header h1, 
+  .info-card .info-card-details .info-card-header h1,
   .info-card .info-card-details .info-card-header h3 {
     color: rgb(62, 62, 62);
     font-size: 22px;
@@ -156,7 +156,7 @@
   a.facebook {
     color: rgb(59, 90, 154) !important;
   }
-  a.facebook:hover {    
+  a.facebook:hover {
     background-color: rgb(59, 90, 154) !important;
   }
   a.twitter {
