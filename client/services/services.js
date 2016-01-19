@@ -1,6 +1,6 @@
 angular.module('nova.services', [])
 
-.factory('Auth', function($http, $rootScope, $state, $window, AppInfo){
+.factory('Auth', function($http, $state, $window, AppInfo){
 
   var signin = function(user){
     return $http({
@@ -28,7 +28,7 @@ angular.module('nova.services', [])
   };
 
   var signout = function(){
-    $rootScope.hasAuth = false;
+    AppInfo.data.hasAuth = false;
     $window.localStorage.removeItem('onBelay.token');
     $window.localStorage.removeItem('onBelay.userId');
     AppInfo.user = {};
@@ -36,16 +36,10 @@ angular.module('nova.services', [])
     $state.go('signin');
   };
 
-  var isAuth = function(){
-    //if there is a token in the browser's localStorage (which is basically a object)
-    return !!$window.localStorage.getItem('onBelay.token');
-  };
-
   return {
     signin: signin,
     signup: signup,
-    signout: signout,
-    isAuth: isAuth
+    signout: signout
   };
 })
 
@@ -116,7 +110,7 @@ angular.module('nova.services', [])
 
 })
 
-.factory('Notify', function($http, $rootScope, $interval) {
+.factory('Notify', function($http, $interval, AppInfo) {
 
   var sendNotification = function(climber,message) {
     return $http({
@@ -147,7 +141,7 @@ angular.module('nova.services', [])
       url: '/api/auth/user/notifications/read'
     }).then(function(resp) {
       //console.log(resp.data);
-      $rootScope.unread = 0;
+      //$rootScope.unread = 0;
       return resp.data;
     });
   };
@@ -177,10 +171,11 @@ angular.module('nova.services', [])
     });
 
   };
-  
-  //could not get this to working within notification Controller. 
-  // updateNotfications();
-  // $interval(updateNotfications, 1000);
+
+  if(AppInfo.data.hasAuth){
+    updateNotfications();
+    $interval(updateNotfications, 5000);
+  }
 
   return {
     sendNotification: sendNotification,
