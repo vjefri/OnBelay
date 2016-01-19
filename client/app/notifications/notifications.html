@@ -30,7 +30,7 @@
                 </div>
                 <div class="[ notif-info-card-buttons ]">
                   <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber)'>Cancel</button>
-		  <button ng-if="climber.isAccepted" class='climbOnBtn btn btn-success outline' ng-click='climbOn(climber)'>Confirm Acceptance</button>
+		  <button ng-if="climber.isAccepted" class='climbOnBtn btn btn-success outline' ng-click='confirmClimb(climber, true)'>Confirm Acceptance</button>
                 </div>
             </div>
         </div>

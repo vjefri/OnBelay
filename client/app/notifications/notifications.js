@@ -46,6 +46,24 @@ angular.module('nova.notifications', ['ngDialog'])
         });
     };
 
+    $scope.confirmClimb = function(climber, confirm) {
+      Notify.confirmClimber(climber, confirm)
+        .then(function(res) {
+          console.log(res);
+          // Turn flags off for both users
+          Climbers.updateStatus(climber)
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(err) {
+              console.error(err);
+            });
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+    };
+    
     $scope.denyClimb = function(climber) {
       Notify.replyToClimber(climber)
         .then(function(res) {
