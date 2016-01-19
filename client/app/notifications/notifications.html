@@ -29,8 +29,10 @@
                     <h5> {{climber.recipient.zipCode}} </h5>
                 </div>
                 <div class="[ notif-info-card-buttons ]">
-                  <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber)'>Cancel</button>
-		  <button ng-if="climber.isAccepted" class='climbOnBtn btn btn-success outline' ng-click='confirmClimb(climber, true)'>Confirm Acceptance</button>
+
+                  <button class='climbOnBtn btn btn-danger outline' ng-click='climbOn(climber, false)'>Cancel</button>
+		          <button ng-if="climber.isAccepted" class='climbOnBtn btn btn-success outline' ng-click='confirmClimb(climber, true)'>Confirm Acceptance</button>
+                 
                 </div>
             </div>
         </div>

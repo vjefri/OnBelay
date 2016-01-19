@@ -101,14 +101,18 @@ function getNotifications(req, res) {
               },
               message: notification.message,
               isRead: notification.isRead,
+              isResolved: notification.isResolved,
               isAccepted: notification.isAccepted,
-	            isResolved: notification.isResolved,
+              isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
-        }).filter(function(item) {
-          return Boolean(item);
+        }).filter(function(notification) {
+          return !!notification;
+        }).filter(function(notification){
+          return !notification.isResolved;
         });
+
 
         //filter all the outgoing messages with following return format
         var outgoingNotif = notifications.map(function(notification) {
@@ -128,15 +132,16 @@ function getNotifications(req, res) {
               message: notification.message,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
-	            isConfirmed: notification.isConfirmed,
-	            isResolved: notification.isResolved,
+              isConfirmed: notification.isConfirmed,
+              isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
         }).filter(function(item) {
-          return Boolean(item);
+          return !!item
+        }).filter(function(notification){
+          return !notification.isResolved;
         });
-
 
 
         //save incoming notifications in a filtered array
