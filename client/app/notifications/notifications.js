@@ -27,8 +27,9 @@ angular.module('nova.notifications', ['ngDialog'])
       ngDialog.open({template:'app/notifications/notifmessage.html', scope: $scope});
     };
 
-    $scope.acceptClimb = function(climber) {
-      Notify.replyToClimber(climber)
+    $scope.climbOn = function(reply) {
+      console.log($scope.targetClimber, reply);
+      Notify.replyToClimber($scope.targetClimber, reply)
         .then(function(res) {
           console.log(res);
           // Turn flags off for both users
