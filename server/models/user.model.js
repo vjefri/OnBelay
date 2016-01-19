@@ -6,14 +6,13 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var userSchema = mongoose.Schema({
   username: String,
   password: String,
-  name: {
-    first: String,
-    last: String
-  },
+  firstName: String,
+  lastName: String,
   zipCode: Number,
   skillLevel: String,
   gender: String,
   climb: { type: Boolean, default: false },
+  climbingWith: Object,
   notifications: {
     incoming: [{ type: ObjectId, ref: 'Notification' }],
     outgoing: [{ type: ObjectId, ref: 'Notification' }]

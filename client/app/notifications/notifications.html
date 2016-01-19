@@ -5,10 +5,14 @@
       <div class="[ notif-info-card ]" ng-click="moreInformation(climber)">
         <img class="[ notif-profile-img img-circle img-responsive ]" src="assets/img/profile-generic.jpg" />
         <div class="[ notif-info-card-details ] animate">
-          <h3> {{climber.sender.username}}</h3>
-          <h4> Awaiting Reply</h4>
-          <h5> {{climber.sender.skillLevel}} / {{climber.sender.gender}} </h5>
-          <h5> {{climber.sender.zipCode}} </h5>
+          <h3> {{climber.recipient.username}}</h3>
+          <h4> Let's Shiba-dang!</h4>
+          <h5> {{climber.recipient.skillLevel}} / {{climber.recipient.gender}} </h5>
+          <h5> {{climber.recipient.zipCode}} </h5>
+        </div>
+        <div class="notif-info-card-buttons">
+          <button class="climbOnBtn btn btn-success outline" ng-click="climbOn(climber)"> Climb </button>
+          <button class="climbOnBtn btn btn-deny outline" ng-click="climbOn(climber)"> Nope </button>
         </div>
       </div>
     </div>

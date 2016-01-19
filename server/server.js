@@ -8,8 +8,6 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-//middleware is a 
-
 //converts to JSON for easy access on response
 app.use(bodyParser.json());
 
@@ -32,7 +30,6 @@ if (process.env.NODE_ENV !== 'production') {
   mongoose.connect(process.env.MONGOLAB_URI);
 }
 
-//pass in 
 controllers.climbOn(app);
 
 app.listen(app.get('port'), function() {

@@ -10,8 +10,8 @@ exports.updateProfile = function(req, res) {
     if (!user) {
       res.json({ success: false, reason: 'User not found' });
     } else {
-      user.name.first = req.body.name.first;
-      user.name.last = req.body.name.last;
+      user.firstName = req.body.firstName;
+      user.lastName = req.body.lastName;
       user.zipCode = req.body.zipCode;
       user.skillLevel = req.body.skillLevel;
       user.gender = req.body.gender;

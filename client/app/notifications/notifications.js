@@ -1,15 +1,10 @@
 angular.module('nova.notifications', ['ngDialog'])
 
-  .controller('NotificationCtrl', function(ngDialog, $scope, $interval, Notify, Climbers) {
+  .controller('NotificationCtrl', function(ngDialog, $scope, $interval, Notify, Climbers, AppInfo) {
     $scope.notifications = {};
+
     $scope.getAllNotifications = function() {
-      Notify.fetchAllNotifications()
-        .then(function(res) {
-          $scope.notifications = res;
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
+      $scope.notifications = AppInfo.user.notifications; 
     };
 
     $scope.readAllNotifications = function() {
@@ -21,11 +16,6 @@ angular.module('nova.notifications', ['ngDialog'])
           console.error(err);
         });
     }();
-
-    $scope.moreInformation = function(climber) {
-      $scope.targetClimber = climber;
-      ngDialog.open({template:'app/notifications/notifmessage.html', scope: $scope});
-    };
 
     $scope.climbOn = function(climber, reply) {
       Notify.replyToClimber(climber, reply)

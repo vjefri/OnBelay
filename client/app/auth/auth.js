@@ -33,7 +33,6 @@ angular.module('nova.auth', [])
         $scope.user.password = '';
         $scope.user.username = '';
         //show dialog to user that the user is taken
-        // fokr
         $scope.showDialog();
         // var usernameInput = angular.element( document.querySelector( '#username' ) );
         //        usernameInput.attr('placeholder',"Select a different username that does not already exist.");

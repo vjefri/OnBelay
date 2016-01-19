@@ -4,19 +4,16 @@ var User = require('../../models').User,
 function sendNotification (req, res) {
   var authUser = req.decoded.user;
   var targetUser = req.body.targetUser;
-  var notificationText = req.body.message;
   var newNotification;
 
 
   //find the username
   User.findOne({ username: authUser }, function(err, sender) {
     if (err) console.error(err);
-    console.log(notificationText);
     if (!sender) {
       res.json({ success: false, reason: 'User not found' });
     } else {
-      User.findOne({ username: targetUser }, function(err, target) {
-
+      User.findOne({ username: targetUser.username }, function(err, target) {
         newNotification = new Notification({
           sender: {
             // id: sender.id._id,
@@ -31,11 +28,8 @@ function sendNotification (req, res) {
             zipCode: target.zipCode,
             skillLevel: target.skillLevel,
             gender: target.gender
-          },
-          message: notificationText
+          }        
         });
-
-        console.log('NOTIFCAITON', newNotification);
 
         newNotification.save(function(err, notification) {
           if (err) console.error(err);
@@ -102,7 +96,6 @@ function getNotifications(req, res) {
                 skillLevel: notification.sender.skillLevel,
                 gender: notification.sender.gender
               },
-              message: notification.message,
               isRead: notification.isRead,
               isResolved: notification.isResolved,
               isAccepted: notification.isAccepted,
@@ -132,7 +125,6 @@ function getNotifications(req, res) {
                 skillLevel: notification.recipient.skillLevel,
                 gender: notification.recipient.gender
               },
-              message: notification.message,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
               isConfirmed: notification.isConfirmed,

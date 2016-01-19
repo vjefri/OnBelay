@@ -3,9 +3,8 @@ angular.module('nova.main', ['ngDialog'])
 .controller('MainController', function(ngDialog, $scope, $interval, $window, Climbers, Notify, Auth, AppInfo) {
   $scope.activeClimbers = {};
   $scope.status = false;
-  $scope.invitationMessage = '';
   $scope.climbOnClicked = {};
-  $scope.targetClimber = null;
+  $scope.readStatus = {};
 
   angular.extend($scope, AppInfo);
   $scope.getActiveClimbers = function() {
@@ -41,28 +40,22 @@ angular.module('nova.main', ['ngDialog'])
   };
 
   $scope.updateStatus = function() {
-    Climbers.updateStatus().then(function(res) {
-      console.log(res);
-    });
+    Climbers.updateStatus()
+      .then(function(res) {
+        console.log(res);
+      });
   };
 
   $scope.climbOn = function(climber) {
-    //open Dialog box -- experimental by Vincent. Pls feel free to remove. 
-    $scope.targetClimber = climber;
-    // $scope.$apply();
     $scope.climbOnClicked[climber.id] = true;
-  };
-
-  $scope.sendInvitationToClimb = function(climber, message) {
-    console.log(message);
-    Notify.sendNotification($scope.targetClimber.username, message)
+    console.log('climbOnClicked', $scope.climbOnClicked);
+    // write to database currently clicked values
+    Notify.sendNotification(climber)
       .then(function(res) {
-        $scope.invitationMessage = '';
-      })
-      .catch(function(err) {
+        console.log(res);
+      }).catch(function(err) {
         console.error(err);
       });
-    ngDialog.closeAll();
   };
 
   //get the initial status of the current user
@@ -70,6 +63,20 @@ angular.module('nova.main', ['ngDialog'])
 
   //update process for main run on interval
   var runUpdate = function() {
+    // filter climbers 
+    // var confirmed = _.filter(AppInfo.user.notifications.incoming, {
+    //   'isConfirmed': true
+    // });
+    var resolved = _.filter(AppInfo.user.notifications.incoming, {
+      'isResolved': true
+    });
+    var read = _.reject(AppInfo.user.notifications.incoming, {
+      'read': true
+    });
+    $scope.readStatus = read;
+    console.log('read', read);
+    console.log('resolved', resolved);
+
     //update active climbers
     $scope.getActiveClimbers();
   };

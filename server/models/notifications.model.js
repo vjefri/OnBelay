@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-    ObjectId = mongoose.Schema.Types.ObjectId;
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var notificationSchema = mongoose.Schema({
   sender: {
@@ -15,12 +15,11 @@ var notificationSchema = mongoose.Schema({
     zipCode: Number,
     skillLevel: String,
     gender: String,
-  },
-  message: String,
+  },  
   isRead: { type: Boolean, default: false },
   isAccepted: { type: Boolean, default: false },
   isResolved: { type: Boolean, default: false },
-  isConfirmed: {type: Boolean, default: false},
+  isConfirmed:{ type: Boolean, default: false },
   createdAt: Date,
   updatedAt: Date
 });

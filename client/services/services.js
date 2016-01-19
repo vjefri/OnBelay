@@ -112,12 +112,11 @@ angular.module('nova.services', [])
 
 .factory('Notify', function($http, $interval, AppInfo) {
 
-  var sendNotification = function(climber,message) {
-    console.log(message);
+  var sendNotification = function(climber) {
     return $http({
       method: 'POST',
       url: '/api/auth/user/notifications/create',
-      data: {targetUser: climber, message:message}
+      data: {targetUser: climber}
     }).then(function(res) {
       return res.data;
     });
@@ -182,7 +181,6 @@ angular.module('nova.services', [])
       url: '/api/auth/user/notifications/incoming'
     }).then(function(res) {
       currentNotifications = res.data;
-      console.log("Current Notifications is", currentNotifications);
     });
 
   };
