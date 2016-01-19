@@ -26,7 +26,10 @@ function sendNotification (req, res) {
           },
           recipient: {
             // id: target.id._id,
-            username: target.username
+            username: target.username,
+            zipCode: target.zipCode,
+            skillLevel: target.skillLevel,
+            gender: target.gender
           },
           message: notifcationText
         });
@@ -99,7 +102,7 @@ function getNotifications(req, res) {
               message: notification.message,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
-	      isResolved: notification.isResolved,
+	            isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
@@ -122,10 +125,11 @@ function getNotifications(req, res) {
                 skillLevel: notification.recipient.skillLevel,
                 gender: notification.recipient.gender
               },
+              message: notification.message,
               isRead: notification.isRead,
               isAccepted: notification.isAccepted,
-	      isConfirmed: notification.isConfirmed,
-	      isResolved: notification.isResolved,
+	            isConfirmed: notification.isConfirmed,
+	            isResolved: notification.isResolved,
               createdAt: notification.createdAt
             };
           }
