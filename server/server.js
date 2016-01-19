@@ -26,7 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
   //connect to mongo database
   mongoose.connect('mongodb://localhost/onbelay');
   // initialize demo users
-//require('../fakeUsers')();
+  // require('../fakeUsers')();
 } else {
   //for heroku, connecting to the mongo that heroku that provides you
   mongoose.connect(process.env.MONGOLAB_URI);
