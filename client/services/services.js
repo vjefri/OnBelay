@@ -159,6 +159,19 @@ angular.module('nova.services', [])
     });
   };
 
+    var confirmClimber = function(climber, confirm) {
+    return $http({
+      method: 'PUT',
+      url: '/api/auth/user/notifications/confirm',
+      data: {
+        notificationId: climber.id,
+        confirm: confirm
+      }
+    }).then(function(res) {
+      return res.data;
+    });
+  };
+
   var currentNotifications = {};
 
   var updateNotfications = function(){
